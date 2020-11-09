@@ -1,9 +1,8 @@
 package com.bean;
 
-public class ClinicBean {
-
-	int clinicid;
-	String clinicname;
+public class PathologyBean {
+	int pathologyid;
+	String pathologyname;
 	String timing;
 	String address;
 	double phoneno;
@@ -11,24 +10,25 @@ public class ClinicBean {
 	String about;
 	double lat;
 	double log;
-	int cityid;
-	int stateid;
+	int cityId;
+	int stateId;
 	int pincode;
+	String specialization;
 
-	public int getClinicid() {
-		return clinicid;
+	public int getPathologyid() {
+		return pathologyid;
 	}
 
-	public void setClinicid(int clinicid) {
-		this.clinicid = clinicid;
+	public void setPathologyid(int pathologyid) {
+		this.pathologyid = pathologyid;
 	}
 
-	public String getClinicname() {
-		return clinicname;
+	public String getPathologyname() {
+		return pathologyname;
 	}
 
-	public void setClinicname(String clinicname) {
-		this.clinicname = clinicname;
+	public void setPathologyname(String pathologyname) {
+		this.pathologyname = pathologyname;
 	}
 
 	public String getTiming() {
@@ -87,20 +87,20 @@ public class ClinicBean {
 		this.log = log;
 	}
 
-	public int getCityid() {
-		return cityid;
+	public int getCityId() {
+		return cityId;
 	}
 
-	public void setCityid(int cityid) {
-		this.cityid = cityid;
+	public void setCityId(int cityId) {
+		this.cityId = cityId;
 	}
 
-	public int getStateid() {
-		return stateid;
+	public int getStateId() {
+		return stateId;
 	}
 
-	public void setStateid(int stateid) {
-		this.stateid = stateid;
+	public void setStateId(int stateId) {
+		this.stateId = stateId;
 	}
 
 	public int getPincode() {
@@ -109,6 +109,14 @@ public class ClinicBean {
 
 	public void setPincode(int pincode) {
 		this.pincode = pincode;
+	}
+
+	public String getSpecialization() {
+		return specialization;
+	}
+
+	public void setSpecialization(String specialization) {
+		this.specialization = specialization;
 	}
 
 }
