@@ -66,4 +66,20 @@ public class Clinicdao {
 		return clinicBean;
 	}
 
+	public ClinicBean searchclinic(String clinicname) {
+		// TODO Auto-generated method stub
+
+		ClinicBean bean=null;
+		try {
+
+			 bean = stmt.queryForObject("select * from clinic where clinicname=?",
+					new Object[] { clinicname }, BeanPropertyRowMapper.newInstance(ClinicBean.class));
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return bean;
+	}
+
 }

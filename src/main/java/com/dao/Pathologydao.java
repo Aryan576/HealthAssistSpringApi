@@ -47,7 +47,7 @@ public class Pathologydao {
 
 		PathologyBean bean = null;
 		try {
-			bean=stmt.queryForObject("select * from pathology where pathologyid=?", new Object[] { pathologyid },
+			bean = stmt.queryForObject("select * from pathology where pathologyid=?", new Object[] { pathologyid },
 					BeanPropertyRowMapper.newInstance(PathologyBean.class));
 		} catch (Exception e) {
 			// TODO: handle exception

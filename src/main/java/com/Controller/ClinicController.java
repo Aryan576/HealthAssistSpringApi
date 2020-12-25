@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.ClinicBean;
@@ -52,7 +53,7 @@ public class ClinicController {
 			response.setMsg("Clinic not found!");
 		}
 		response.setStatus(201);
-		return null;
+		return response;
 		
 	}
 	@PutMapping("updateClinic")
@@ -64,5 +65,7 @@ public class ClinicController {
 		response.setStatus(201);
 		return response;
 	}
-
+	
+	
+	
 }
