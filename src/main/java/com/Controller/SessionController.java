@@ -19,6 +19,7 @@ import com.bean.LoginBean;
 import com.bean.ResponseBean;
 
 import com.bean.UserBean;
+import com.dao.Otpdao;
 import com.dao.Sessiondao;
 
 import com.service.MailerService;
@@ -32,6 +33,10 @@ public class SessionController {
 	OtpService OtpService;
 	@Autowired
 	MailerService mailerService;
+
+	@Autowired
+	Otpdao otpdao;
+	
 
 	@PostMapping("login")
 	public ResponseBean<UserBean> Login(@RequestBody LoginBean login) {
@@ -90,5 +95,67 @@ public class SessionController {
 		response.setStatus(200);
 		return response;
 	}
+	
+	@PostMapping("resetpassword")
+	public ResponseBean<UserBean> sendOtpForResetPassword(@RequestBody UserBean userBean, String email) {
+
+		userBean = sessionDao.getUserByEmail(email);
+		ResponseBean<UserBean> responseBean = new ResponseBean<>();
+
+		if (userBean == null) {
+
+			responseBean.setMsg("Invalid Email Address");
+			responseBean.setStatus(201);
+
+		} else {
+			String otp = OtpService.generateOtp();
+			userBean.setOtp(otp);
+			otpdao.updateOtp(email, otp);
+			mailerService.sendOtpForForgetPassword(userBean);
+
+			responseBean.setMsg("Please Check Email for OTP");
+			responseBean.setStatus(201);
+
+		}
+
+		return responseBean;
+	}
+	
+	
+	@PostMapping("setnewpassword")
+	public ResponseBean<UserBean> setNewPasswordUsingOtp(@RequestBody UserBean userBean) {
+
+		UserBean dbUser = sessionDao.getUserByEmail(userBean.getEmail());
+		
+		ResponseBean<UserBean> responseBean = new ResponseBean<>();
+
+		if (dbUser == null) {
+
+			responseBean.setMsg("User not found");
+			responseBean.setStatus(201);
+
+		} else {
+			
+			
+			if(dbUser.getOtp().equals(userBean.getOtp())) {	
+				otpdao.updateOtp(userBean.getEmail(), "");
+				sessionDao.updatePassword(userBean);
+				mailerService.sendMailForPasswordUpdate(dbUser);
+				responseBean.setMsg("Password Update...");
+				responseBean.setStatus(201);
+
+			}else {
+				responseBean.setMsg("Invalid Otp....");
+				responseBean.setStatus(201);
+
+			}
+			
+			
+
+		}
+
+		return responseBean;
+	}
+
 
 }

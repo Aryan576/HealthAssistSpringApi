@@ -19,10 +19,10 @@ public class BookAppointmentdao {
 		// TODO Auto-generated method stub
 
 		stmt.update(
-				"insert into appointment (appointmentname,patientid,doctorid,statusid,appcreatedate,comment,clinicid,reference,complain,diagnosis,appointmentdate,appointmenttime) values(?,?,?,?,?,?,?,?,?,?,?,?)",
-				bean.getAppointmentname(), bean.getPatientid(), bean.getDoctorid(), bean.getStatusid(),
-				bean.getApp_create_date(), bean.getComment(), bean.getClinicid(), bean.getReference(),
-				bean.getComplain(), bean.getDiagnosis(), bean.getAppointMentDate(), bean.getAppointMentTime());
+				"insert into appointment (patientid,doctorid,statusid,appcreatedate,comment,clinicid,reference,complain,appointmentdate,appointmenttime) values(?,?,?,?,?,?,?,?,?,?)",
+				bean.getPatientid(), bean.getDoctorid(), bean.getStatusid(), bean.getApp_create_date(),
+				bean.getComment(), bean.getClinicid(), bean.getReference(), bean.getComplain(),
+				bean.getAppointMentDate(), bean.getAppointMentTime());
 
 	}
 
@@ -60,11 +60,10 @@ public class BookAppointmentdao {
 	public BookAppointmentBean updateAppointment(BookAppointmentBean bean) {
 
 		stmt.update(
-				"update appointment set appointmentname=?,patientid=?,doctorid=?,statusid=?,appcreatedate=?,comment=?,clinicid=?,reference=?,complain=?,diagnosis=?,appointMentDate=?,appointMentTime=? where appointmentid=? ",
-				bean.getAppointmentname(), bean.getPatientid(), bean.getDoctorid(), bean.getStatusid(),
-				bean.getApp_create_date(), bean.getComment(), bean.getClinicid(), bean.getReference(),
-				bean.getComplain(), bean.getDiagnosis(), bean.getAppointMentDate(), bean.getAppointMentTime(),
-				bean.getAppointmentid());
+				"update appointment set patientid=?,doctorid=?,statusid=?,appcreatedate=?,comment=?,clinicid=?,reference=?,complain=?,appointMentDate=?,appointMentTime=? where appointmentid=? ",
+				bean.getPatientid(), bean.getDoctorid(), bean.getStatusid(), bean.getApp_create_date(),
+				bean.getComment(), bean.getClinicid(), bean.getReference(), bean.getComplain(),
+				bean.getAppointMentDate(), bean.getAppointMentTime(), bean.getAppointmentid());
 
 		return bean;
 		// TODO Auto-generated method stub
