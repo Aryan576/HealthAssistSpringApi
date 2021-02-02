@@ -54,7 +54,7 @@ public class BookAppointmentdao {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return null;
+		return bean;
 	}
 
 	public BookAppointmentBean updateAppointment(BookAppointmentBean bean) {
@@ -67,6 +67,13 @@ public class BookAppointmentdao {
 
 		return bean;
 		// TODO Auto-generated method stub
+
+	}
+
+	public void accept_reject_Appointment(BookAppointmentBean appointmentBean) {
+		// TODO Auto-generated method stub
+		stmt.update("update appointment set statusid=? where appointmentid=?", appointmentBean.getStatusid(),
+				appointmentBean.getAppointmentid());
 
 	}
 

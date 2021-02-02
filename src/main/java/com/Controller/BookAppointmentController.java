@@ -1,8 +1,10 @@
 package com.Controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +17,7 @@ import com.bean.BookAppointmentBean;
 import com.bean.ResponseBean;
 import com.dao.BookAppointmentdao;
 
+@CrossOrigin
 @RestController
 public class BookAppointmentController {
 
@@ -71,5 +74,18 @@ public class BookAppointmentController {
 		response.setMsg("Appointment Updated");
 		response.setStatus(200);
 		return response;
+	}
+	
+	@PutMapping("accept_reject_Appointment")
+	public ResponseBean<BookAppointmentBean> Accept_Reject_Appointment(@RequestBody BookAppointmentBean appointmentBean)
+	{
+		ResponseBean<BookAppointmentBean> response =new ResponseBean<>();
+		dao.accept_reject_Appointment(appointmentBean);
+		response.setData(appointmentBean);
+		response.setMsg("Appointment Status Updated successfuly");
+		response.setStatus(200);
+		
+		return response;
+		
 	}
 }

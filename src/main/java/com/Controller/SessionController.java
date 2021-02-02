@@ -2,11 +2,8 @@ package com.Controller;
 
 import java.util.List;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
-
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,6 +22,7 @@ import com.dao.Sessiondao;
 import com.service.MailerService;
 import com.service.OtpService;
 
+@CrossOrigin
 @RestController
 public class SessionController {
 	@Autowired
@@ -36,7 +34,6 @@ public class SessionController {
 
 	@Autowired
 	Otpdao otpdao;
-	
 
 	@PostMapping("login")
 	public ResponseBean<UserBean> Login(@RequestBody LoginBean login) {
@@ -44,10 +41,18 @@ public class SessionController {
 		System.out.println(login.getEmail());
 		ResponseBean<UserBean> response = new ResponseBean<>();
 		signup = sessionDao.login(login.getEmail(), login.getPassword());
-		response.setData(signup);
-		response.setMsg("user Login");
-		response.setStatus(200);
-
+		
+		if(signup!=null)
+		{
+			response.setData(signup);
+			response.setMsg("user Login");
+			response.setStatus(200);
+		}
+		else {
+			response.setData(signup);
+			response.setMsg("User Does Not Exits!!!");
+			response.setStatus(201);
+		}
 		return response;
 	}
 
@@ -69,15 +74,14 @@ public class SessionController {
 
 	@PostMapping("/doctorsignup")
 	public ResponseBean<UserBean> doctorSignup(@RequestBody DoctorProfileBean doctorProfileBean) {
-		
-		
+
 		doctorProfileBean.setStatus(UserBean.KYC_DOCTOR);
 		doctorProfileBean.setStatusReason("Your KYS is pending Our Team Will Contact You Soon..");
 		mailerService.sendDoctorRegisterMail(doctorProfileBean);
-			System.out.println("doctor");
-			sessionDao.addDoctorProfile(doctorProfileBean);
+		System.out.println("doctor");
+		sessionDao.addDoctorProfile(doctorProfileBean);
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
-		
+
 		responseBean.setData(doctorProfileBean);
 		responseBean.setMsg("user successfully signup!!");
 		responseBean.setStatus(200);
@@ -95,7 +99,7 @@ public class SessionController {
 		response.setStatus(200);
 		return response;
 	}
-	
+
 	@PostMapping("resetpassword")
 	public ResponseBean<UserBean> sendOtpForResetPassword(@RequestBody UserBean userBean, String email) {
 
@@ -120,13 +124,12 @@ public class SessionController {
 
 		return responseBean;
 	}
-	
-	
+
 	@PostMapping("setnewpassword")
 	public ResponseBean<UserBean> setNewPasswordUsingOtp(@RequestBody UserBean userBean) {
 
 		UserBean dbUser = sessionDao.getUserByEmail(userBean.getEmail());
-		
+
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
 
 		if (dbUser == null) {
@@ -135,27 +138,23 @@ public class SessionController {
 			responseBean.setStatus(201);
 
 		} else {
-			
-			
-			if(dbUser.getOtp().equals(userBean.getOtp())) {	
+
+			if (dbUser.getOtp().equals(userBean.getOtp())) {
 				otpdao.updateOtp(userBean.getEmail(), "");
 				sessionDao.updatePassword(userBean);
 				mailerService.sendMailForPasswordUpdate(dbUser);
 				responseBean.setMsg("Password Update...");
 				responseBean.setStatus(201);
 
-			}else {
+			} else {
 				responseBean.setMsg("Invalid Otp....");
 				responseBean.setStatus(201);
 
 			}
-			
-			
 
 		}
 
 		return responseBean;
 	}
-
 
 }

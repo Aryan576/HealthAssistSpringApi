@@ -66,19 +66,14 @@ public class Clinicdao {
 		return clinicBean;
 	}
 
-	public ClinicBean searchclinic(String clinicname) {
+	public List<ClinicBean> seachClinic(String searchName) {
 		// TODO Auto-generated method stub
-
-		ClinicBean bean=null;
-		try {
-
-			 bean = stmt.queryForObject("select * from clinic where clinicname=?",
-					new Object[] { clinicname }, BeanPropertyRowMapper.newInstance(ClinicBean.class));
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
+		System.out.println("dao"+searchName);
+		
+			
+			List<ClinicBean> bean  = stmt.query("select * from clinic where clinicname like '%"+searchName+"% ",
+					BeanPropertyRowMapper.newInstance(ClinicBean.class));
+		
 		return bean;
 	}
 

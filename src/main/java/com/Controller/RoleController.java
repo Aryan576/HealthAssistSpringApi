@@ -3,6 +3,7 @@ package com.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bean.ResponseBean;
 import com.bean.RoleBean;
 import com.dao.Roledao;
-
+@CrossOrigin
 @RestController
 public class RoleController {
 	@Autowired
