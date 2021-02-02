@@ -42,17 +42,12 @@ public class SessionController {
 		ResponseBean<UserBean> response = new ResponseBean<>();
 		signup = sessionDao.login(login.getEmail(), login.getPassword());
 		
-		if(signup!=null)
-		{
+		
 			response.setData(signup);
 			response.setMsg("user Login");
 			response.setStatus(200);
-		}
-		else {
-			
-			response.setMsg("User Does Not Exits!!!");
-			response.setStatus(201);
-		}
+		
+		
 		return response;
 	}
 
