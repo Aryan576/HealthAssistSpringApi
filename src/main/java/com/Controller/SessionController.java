@@ -49,7 +49,7 @@ public class SessionController {
 			response.setStatus(200);
 		}
 		else {
-			response.setData(signup);
+			
 			response.setMsg("User Does Not Exits!!!");
 			response.setStatus(201);
 		}
