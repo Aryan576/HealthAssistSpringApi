@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -98,8 +98,8 @@ public class SessionController {
 		return response;
 	}
 
-	@GetMapping("resetpassword")
-	public ResponseBean<UserBean> sendOtpForResetPassword(@RequestParam("email") String email,UserBean userBean ) {
+	@GetMapping("resetpassword/{email}")
+	public ResponseBean<UserBean> sendOtpForResetPassword(@PathVariable("email") String email,UserBean userBean ) {
 		
 
 		userBean = sessionDao.getUserByEmail(email);
@@ -117,7 +117,7 @@ public class SessionController {
 			mailerService.sendOtpForForgetPassword(userBean);
 
 			responseBean.setMsg("Please Check Email for OTP");
-			responseBean.setStatus(201);
+			responseBean.setStatus(200);
 
 		}
 
