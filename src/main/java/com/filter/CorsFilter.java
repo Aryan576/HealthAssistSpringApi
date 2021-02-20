@@ -11,10 +11,12 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Servlet Filter implementation class CorsFilter
  */
-@WebFilter("/*")
+@Component
 public class CorsFilter implements Filter {
 
     /**
@@ -58,6 +60,7 @@ public class CorsFilter implements Filter {
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
+		System.out.println("Cors init");
 	}
 
 }

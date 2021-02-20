@@ -100,7 +100,7 @@ public class SessionController {
 
 	@GetMapping("resetpassword/{email}")
 	public ResponseBean<UserBean> sendOtpForResetPassword(@PathVariable("email") String email, UserBean userBean) {
-
+			System.out.println("Reset Called");
 		userBean = sessionDao.getUserByEmail(email);
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
 
