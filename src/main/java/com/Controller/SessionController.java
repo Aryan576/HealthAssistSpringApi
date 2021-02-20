@@ -99,8 +99,7 @@ public class SessionController {
 	}
 
 	@GetMapping("resetpassword/{email}")
-	public ResponseBean<UserBean> sendOtpForResetPassword(@PathVariable("email") String email,UserBean userBean ) {
-		
+	public ResponseBean<UserBean> sendOtpForResetPassword(@PathVariable("email") String email, UserBean userBean) {
 
 		userBean = sessionDao.getUserByEmail(email);
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
@@ -124,10 +123,11 @@ public class SessionController {
 		return responseBean;
 	}
 
-	@PostMapping("setnewpassword")
-	public ResponseBean<UserBean> setNewPasswordUsingOtp(@RequestBody UserBean userBean) {
+	@GetMapping("setnewpassword/{otp}/{password}/{email}")
+	public ResponseBean<UserBean> setNewPasswordUsingOtp(@PathVariable("otp") String otp,
+			@PathVariable("password") String password, @PathVariable("email") String email) {
 
-		UserBean dbUser = sessionDao.getUserByEmail(userBean.getEmail());
+		UserBean dbUser = sessionDao.getUserByEmail(email);
 
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
 
@@ -137,13 +137,13 @@ public class SessionController {
 			responseBean.setStatus(201);
 
 		} else {
-
-			if (dbUser.getOtp().equals(userBean.getOtp())) {
-				otpdao.updateOtp(userBean.getEmail(), "");
-				sessionDao.updatePassword(userBean);
+			dbUser.setPassword(password);
+			if (dbUser.getOtp().equals(otp)) {
+				otpdao.updateOtp(email, "");
+				sessionDao.updatePassword(dbUser);
 				mailerService.sendMailForPasswordUpdate(dbUser);
 				responseBean.setMsg("Password Update...");
-				responseBean.setStatus(201);
+				responseBean.setStatus(200);
 
 			} else {
 				responseBean.setMsg("Invalid Otp....");
