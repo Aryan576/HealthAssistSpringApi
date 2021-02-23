@@ -1,5 +1,6 @@
 package com.Controller;
 
+import java.nio.channels.SeekableByteChannel;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,15 +58,22 @@ public class SessionController {
 	@PostMapping("/signup")
 	public ResponseBean<UserBean> signup(@RequestBody UserBean userBean) {
 
-		userBean.setOtp(OtpService.generateOtp());
-		mailerService.sendOtpForUserVerification(userBean);
-		sessionDao.insertUser(userBean);
+		
 
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
-
-		responseBean.setData(userBean);
-		responseBean.setMsg("user successfully signup!!");
-		responseBean.setStatus(200);
+			if(sessionDao.getUserByEmail(userBean.getEmail())!=null)
+			{
+				responseBean.setMsg("You Are Already Register");
+				responseBean.setStatus(201);
+					
+			}else {
+				userBean.setOtp(OtpService.generateOtp());
+				mailerService.sendOtpForUserVerification(userBean);
+				sessionDao.insertUser(userBean);
+					responseBean.setData(userBean);
+					responseBean.setMsg("user successfully signup!!");
+					responseBean.setStatus(200);
+			}
 
 		return responseBean;
 	}
