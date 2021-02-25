@@ -14,6 +14,15 @@ public class PharmacyBean {
 	int stateId;
 	int pincode;
 	String cityname;
+	String timing;
+
+	public String getTiming() {
+		return timing;
+	}
+
+	public void setTiming(String timing) {
+		this.timing = timing;
+	}
 
 	public String getCityname() {
 		return cityname;
