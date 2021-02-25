@@ -17,9 +17,9 @@ public class Pharmacydao {
 	public void addpharmacy(PharmacyBean bean) {
 		// TODO Auto-generated method stub
 		stmt.update(
-				"insert into pharmacy(pharmacyname,address,phone,rating,comment,lat,log,about,cityid,stateid,pincode) values(?,?,?,?,?,?,?,?,?,?,?)",
+				"insert into pharmacy(pharmacyname,address,phone,rating,comment,lat,log,about,cityid,stateid,pincode,timing) values(?,?,?,?,?,?,?,?,?,?,?,?)",
 				bean.getPharmacyname(), bean.getAddress(), bean.getPhone(), bean.getRating(), bean.getComment(),
-				bean.getLat(), bean.getLog(), bean.getAbout(), bean.getCityId(), bean.getStateId(), bean.getPincode());
+				bean.getLat(), bean.getLog(), bean.getAbout(), bean.getCityId(), bean.getStateId(), bean.getPincode(),bean.getTiming());
 
 	}
 
@@ -56,9 +56,9 @@ public class Pharmacydao {
 	public void updatepharmacy(PharmacyBean bean) {
 		// TODO Auto-generated method stub
 		stmt.update(
-				"update pharmacy set pharmacyname=?,address=?,phone=?,rating=?,comment=?,lat=?,log=?,about=?,cityid=?,stateid=?,pincode=? where pharmacyid=?",
+				"update pharmacy set pharmacyname=?,address=?,phone=?,rating=?,comment=?,lat=?,log=?,about=?,cityid=?,stateid=?,pincode=?,timing=? where pharmacyid=?",
 				bean.getPharmacyname(), bean.getAddress(), bean.getPhone(), bean.getRating(), bean.getComment(),
-				bean.getLat(), bean.getLog(), bean.getAbout(), bean.getCityId(), bean.getStateId(), bean.getPincode(),
+				bean.getLat(), bean.getLog(), bean.getAbout(), bean.getCityId(), bean.getStateId(), bean.getPincode(),bean.getTiming(),
 				bean.getPharmacyid());
 
 	}
