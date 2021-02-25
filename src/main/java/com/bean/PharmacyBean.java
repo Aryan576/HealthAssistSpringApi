@@ -13,6 +13,15 @@ public class PharmacyBean {
 	int cityId;
 	int stateId;
 	int pincode;
+	String cityname;
+
+	public String getCityname() {
+		return cityname;
+	}
+
+	public void setCityname(String cityname) {
+		this.cityname = cityname;
+	}
 
 	public int getPharmacyid() {
 		return pharmacyid;

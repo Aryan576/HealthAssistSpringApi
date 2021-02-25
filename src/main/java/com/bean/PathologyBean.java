@@ -14,6 +14,15 @@ public class PathologyBean {
 	int stateId;
 	int pincode;
 	String specialization;
+	String cityname;
+
+	public String getCityname() {
+		return cityname;
+	}
+
+	public void setCityname(String cityname) {
+		this.cityname = cityname;
+	}
 
 	public int getPathologyid() {
 		return pathologyid;

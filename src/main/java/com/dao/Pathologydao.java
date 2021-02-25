@@ -28,7 +28,7 @@ public class Pathologydao {
 	public List<PathologyBean> listPathology() {
 		// TODO Auto-generated method stub
 
-		List<PathologyBean> bean = stmt.query("select * from pathology",
+		List<PathologyBean> bean = stmt.query("select *,city.cityname from pathology as p join city using(cityid) where p.cityid = cityid",
 				BeanPropertyRowMapper.newInstance(PathologyBean.class));
 		return bean;
 	}

@@ -25,7 +25,7 @@ public class Pharmacydao {
 
 	public List<PharmacyBean> listpharmacy() {
 		// TODO Auto-generated method stub
-		List<PharmacyBean> bean = stmt.query("select * from pharmacy",
+		List<PharmacyBean> bean = stmt.query("select *,city.cityname from pharmacy as p join city using(cityid) where p.cityid = cityid",
 				BeanPropertyRowMapper.newInstance(PharmacyBean.class));
 		return bean;
 	}
