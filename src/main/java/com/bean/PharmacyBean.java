@@ -10,7 +10,7 @@ public class PharmacyBean {
 	double lat;
 	double log;
 	String about;
-	int cityId;
+	int cityid;
 	int stateId;
 	int pincode;
 	String cityname;
