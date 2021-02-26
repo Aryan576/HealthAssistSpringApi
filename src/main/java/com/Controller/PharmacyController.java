@@ -24,6 +24,8 @@ public class PharmacyController {
 	@PostMapping("addpharmacy")
 	public ResponseBean<PharmacyBean> addpharmacy(@RequestBody PharmacyBean bean) {
 		ResponseBean<PharmacyBean> response = new ResponseBean<>();
+		
+		
 		dao.addpharmacy(bean);
 		response.setData(bean);
 		response.setMsg("Pharmacy Added");

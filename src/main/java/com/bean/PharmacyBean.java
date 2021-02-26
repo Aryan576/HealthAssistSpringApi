@@ -4,13 +4,13 @@ public class PharmacyBean {
 	int pharmacyid;
 	String pharmacyname;
 	String address;
-	double phone;
-	double rating;
+	String phone;
+	String rating;
 	String comment;
 	double lat;
 	double log;
 	String about;
-	int cityId;
+	int cityid;
 	int stateId;
 	int pincode;
 	String cityname;
@@ -56,19 +56,23 @@ public class PharmacyBean {
 		this.address = address;
 	}
 
-	public double getPhone() {
+	
+
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(double phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-	public double getRating() {
+	
+
+	public String getRating() {
 		return rating;
 	}
 
-	public void setRating(double rating) {
+	public void setRating(String rating) {
 		this.rating = rating;
 	}
 
@@ -104,12 +108,14 @@ public class PharmacyBean {
 		this.about = about;
 	}
 
-	public int getCityId() {
-		return cityId;
+	
+
+	public int getCityid() {
+		return cityid;
 	}
 
-	public void setCityId(int cityId) {
-		this.cityId = cityId;
+	public void setCityid(int cityid) {
+		this.cityid = cityid;
 	}
 
 	public int getStateId() {

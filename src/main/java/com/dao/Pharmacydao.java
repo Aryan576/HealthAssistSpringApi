@@ -19,7 +19,7 @@ public class Pharmacydao {
 		stmt.update(
 				"insert into pharmacy(pharmacyname,address,phone,rating,comment,lat,log,about,cityid,pincode,timing) values(?,?,?,?,?,?,?,?,?,?,?)",
 				bean.getPharmacyname(), bean.getAddress(), bean.getPhone(), bean.getRating(), bean.getComment(),
-				bean.getLat(), bean.getLog(), bean.getAbout(), bean.getCityId(), bean.getPincode(),bean.getTiming());
+				bean.getLat(), bean.getLog(), bean.getAbout(), bean.getCityid(), bean.getPincode(),bean.getTiming());
 
 	}
 
@@ -58,7 +58,7 @@ public class Pharmacydao {
 		stmt.update(
 				"update pharmacy set pharmacyname=?,address=?,phone=?,rating=?,comment=?,lat=?,log=?,about=?,cityid=?,pincode=?,timing=? where pharmacyid=?",
 				bean.getPharmacyname(), bean.getAddress(), bean.getPhone(), bean.getRating(), bean.getComment(),
-				bean.getLat(), bean.getLog(), bean.getAbout(), bean.getCityId(), bean.getPincode(),bean.getTiming(),
+				bean.getLat(), bean.getLog(), bean.getAbout(), bean.getCityid(), bean.getPincode(),bean.getTiming(),
 				bean.getPharmacyid());
 
 	}

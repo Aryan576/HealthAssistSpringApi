@@ -18,9 +18,9 @@ public class Pathologydao {
 		// TODO Auto-generated method stub
 
 		stmt.update(
-				"insert into pathology (pathologyname,timing,address,phoneno,rating,about,lat,log,cityid,stateid,pincode,specialization) values(?,?,?,?,?,?,?,?,?,?,?,?)",
+				"insert into pathology (pathologyname,timing,address,phoneno,rating,about,lat,log,cityid,pincode,specialization) values(?,?,?,?,?,?,?,?,?,?,?)",
 				bean.getPathologyname(), bean.getTiming(), bean.getAddress(), bean.getPhoneno(), bean.getRating(),
-				bean.getAbout(), bean.getLat(), bean.getLog(), bean.getCityId(), bean.getStateId(), bean.getPincode(),
+				bean.getAbout(), bean.getLat(), bean.getLog(), bean.getCityid(), bean.getPincode(),
 				bean.getSpecialization());
 
 	}
@@ -60,9 +60,9 @@ public class Pathologydao {
 
 	public PathologyBean updatePathology(PathologyBean bean) {
 		stmt.update(
-				"update pathology set pathologyname=?,timing=?,address=?,phoneno=?,rating=?,about=?,lat=?,log=?,cityid=?,stateid=?,pincode=?,specialization=? where pathologyid=? ",
+				"update pathology set pathologyname=?,timing=?,address=?,phoneno=?,rating=?,about=?,lat=?,log=?,cityid=?,pincode=?,specialization=? where pathologyid=? ",
 				bean.getPathologyname(), bean.getTiming(), bean.getAddress(), bean.getPhoneno(), bean.getRating(),
-				bean.getAbout(), bean.getLat(), bean.getLog(), bean.getCityId(), bean.getStateId(), bean.getPincode(),
+				bean.getAbout(), bean.getLat(), bean.getLog(), bean.getCityid(), bean.getPincode(),
 				bean.getSpecialization(), bean.getPathologyid());
 		return bean;
 	}

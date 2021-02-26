@@ -5,12 +5,12 @@ public class PathologyBean {
 	String pathologyname;
 	String timing;
 	String address;
-	double phoneno;
-	double rating;
+	String phoneno;
+	String rating;
 	String about;
 	double lat;
 	double log;
-	int cityId;
+	int cityid;
 	int stateId;
 	int pincode;
 	String specialization;
@@ -56,19 +56,21 @@ public class PathologyBean {
 		this.address = address;
 	}
 
-	public double getPhoneno() {
+	
+
+	public String getPhoneno() {
 		return phoneno;
 	}
 
-	public void setPhoneno(double phoneno) {
+	public void setPhoneno(String phoneno) {
 		this.phoneno = phoneno;
 	}
 
-	public double getRating() {
+	public String getRating() {
 		return rating;
 	}
 
-	public void setRating(double rating) {
+	public void setRating(String rating) {
 		this.rating = rating;
 	}
 
@@ -96,12 +98,14 @@ public class PathologyBean {
 		this.log = log;
 	}
 
-	public int getCityId() {
-		return cityId;
+	
+
+	public int getCityid() {
+		return cityid;
 	}
 
-	public void setCityId(int cityId) {
-		this.cityId = cityId;
+	public void setCityid(int cityid) {
+		this.cityid = cityid;
 	}
 
 	public int getStateId() {
