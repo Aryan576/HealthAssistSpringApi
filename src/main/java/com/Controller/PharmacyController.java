@@ -63,15 +63,29 @@ public class PharmacyController {
 	}
 		
 	@PutMapping("updatepharmacy")
-	public ResponseBean<PharmacyBean> updatepharmacy(PharmacyBean bean){
+	public ResponseBean<PharmacyBean> updatepharmacy( @RequestBody PharmacyBean bean){
 		ResponseBean<PharmacyBean> response = new ResponseBean<>();
+		
+		
 		dao.updatepharmacy(bean);
+		System.out.println("Pharamcy Update call");
+		System.out.println(bean.getTiming()+bean.getAddress());
 		response.setData(bean);
 		response.setMsg("Pharmacy updated");
 		response.setStatus(200);
 		
 		return response;
 		
+		
+	}
+	@GetMapping("getPharmacyById/{pharmacyid}")
+	public ResponseBean<PharmacyBean> getPharamcyById(@PathVariable("pharmacyid")int pharmacyid,PharmacyBean bean){
+		ResponseBean<PharmacyBean> response =new ResponseBean<>();
+		bean=dao.getPharmacyById(pharmacyid);
+		response.setData(bean);
+		response.setMsg("Pharamcy By ID");
+		response.setStatus(200);
+		return response;
 		
 	}
 	

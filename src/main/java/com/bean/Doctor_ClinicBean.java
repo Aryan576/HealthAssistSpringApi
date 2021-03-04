@@ -11,6 +11,15 @@ public class Doctor_ClinicBean {
 	String sat;
 	String sun;
 	String threshold;
+	String clinicname;
+
+	public String getClinicname() {
+		return clinicname;
+	}
+
+	public void setClinicname(String clinicname) {
+		this.clinicname = clinicname;
+	}
 
 	public int getDoctorid() {
 		return doctorid;

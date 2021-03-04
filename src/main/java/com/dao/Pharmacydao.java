@@ -25,7 +25,7 @@ public class Pharmacydao {
 
 	public List<PharmacyBean> listpharmacy() {
 		// TODO Auto-generated method stub
-		List<PharmacyBean> bean = stmt.query("select *,city.cityname from pharmacy as p join city using(cityid) where p.cityid = cityid",
+		List<PharmacyBean> bean = stmt.query("select *,city.cityname from pharmacy as p join city using(cityid) where p.cityid = cityid and isdeleted = 0",
 				BeanPropertyRowMapper.newInstance(PharmacyBean.class));
 		return bean;
 	}
@@ -35,7 +35,7 @@ public class Pharmacydao {
 		PharmacyBean bean = null;
 		bean = getPharmacyById(pharmacyid);
 		if (bean != null) {
-			stmt.update("delete from pharmacy where pharmacyid=?", pharmacyid);
+			stmt.update("update pharmacy set isdeleted = 1 where pharmacyid=?", pharmacyid);
 		}
 		return bean;
 	}
@@ -55,6 +55,7 @@ public class Pharmacydao {
 
 	public void updatepharmacy(PharmacyBean bean) {
 		// TODO Auto-generated method stub
+		System.out.println("Pharamcydao Update call");
 		stmt.update(
 				"update pharmacy set pharmacyname=?,address=?,phone=?,rating=?,comment=?,lat=?,log=?,about=?,cityid=?,pincode=?,timing=? where pharmacyid=?",
 				bean.getPharmacyname(), bean.getAddress(), bean.getPhone(), bean.getRating(), bean.getComment(),

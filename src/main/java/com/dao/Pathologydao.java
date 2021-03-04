@@ -28,7 +28,7 @@ public class Pathologydao {
 	public List<PathologyBean> listPathology() {
 		// TODO Auto-generated method stub
 
-		List<PathologyBean> bean = stmt.query("select *,city.cityname from pathology as p join city using(cityid) where p.cityid = cityid",
+		List<PathologyBean> bean = stmt.query("select *,city.cityname from pathology as p join city using(cityid) where p.cityid = cityid and isdeleted = 0",
 				BeanPropertyRowMapper.newInstance(PathologyBean.class));
 		return bean;
 	}
@@ -38,7 +38,7 @@ public class Pathologydao {
 		PathologyBean bean = null;
 		bean = getPathologyById(pathologyid);
 		if (bean != null) {
-			stmt.update("delete from pathology where pathologyid=?", pathologyid);
+			stmt.update("update pathology set isdeleted = 1 where pathologyid=?", pathologyid);
 		}
 		return bean;
 	}

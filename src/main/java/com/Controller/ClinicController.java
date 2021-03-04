@@ -26,7 +26,7 @@ public class ClinicController {
 	public ResponseBean<ClinicBean> addclinic( @RequestBody ClinicBean clinicBean )
 	{
 		ResponseBean<ClinicBean> response =new ResponseBean<>();
-		dao.adddoctor(clinicBean);
+		dao.addclinic(clinicBean);
 		response.setData(clinicBean);
 		response.setMsg("Clinic Added");
 		response.setStatus(201);

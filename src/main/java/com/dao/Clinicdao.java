@@ -14,14 +14,14 @@ public class Clinicdao {
 	@Autowired
 	JdbcTemplate stmt;
 
-	public void adddoctor(ClinicBean clinicBean) {
+	public void addclinic(ClinicBean clinicBean) {
 		// TODO Auto-generated method stub
 
 		stmt.update(
-				"insert into clinic (clinicname,timing,address,phoneno,rating,about,lat,log,cityid,stateid,pincode) values(?,?,?,?,?,?,?,?,?,?,?)",
+				"insert into clinic (clinicname,timing,address,phoneno,rating,about,lat,log,cityid,pincode) values(?,?,?,?,?,?,?,?,?,?)",
 				clinicBean.getClinicname(), clinicBean.getTiming(), clinicBean.getAddress(), clinicBean.getPhoneno(),
 				clinicBean.getRating(), clinicBean.getAbout(), clinicBean.getLat(), clinicBean.getLog(),
-				clinicBean.getCityid(), clinicBean.getStateid(), clinicBean.getPincode());
+				clinicBean.getCityid(), clinicBean.getPincode());
 
 	}
 
@@ -59,10 +59,10 @@ public class Clinicdao {
 	public ClinicBean updateclinic(ClinicBean clinicBean) {
 		// TODO Auto-generated method stub
 		stmt.update(
-				"update clinic set clinicname=?,timing=?,address=?,phoneno=?,rating=?,about=?,lat=?,log=?,cityid=?,stateid=?,pincode=? where clinicid=? ",
+				"update clinic set clinicname=?,timing=?,address=?,phoneno=?,rating=?,about=?,lat=?,log=?,cityid=?,pincode=? where clinicid=? ",
 				clinicBean.getClinicname(), clinicBean.getTiming(), clinicBean.getAddress(), clinicBean.getPhoneno(),
 				clinicBean.getRating(), clinicBean.getAbout(), clinicBean.getLat(), clinicBean.getLog(),
-				clinicBean.getCityid(), clinicBean.getStateid(), clinicBean.getPincode(), clinicBean.getClinicid());
+				clinicBean.getCityid(), clinicBean.getPincode(), clinicBean.getClinicid());
 		return clinicBean;
 	}
 

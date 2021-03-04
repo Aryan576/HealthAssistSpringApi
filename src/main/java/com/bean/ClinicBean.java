@@ -6,13 +6,13 @@ public class ClinicBean {
 	String clinicname;
 	String timing;
 	String address;
-	double phoneno;
-	double rating;
+	String phoneno;
+	float rating;
 	String about;
 	double lat;
 	double log;
 	int cityid;
-	int stateid;
+	
 	int pincode;
 
 	public int getClinicid() {
@@ -47,19 +47,23 @@ public class ClinicBean {
 		this.address = address;
 	}
 
-	public double getPhoneno() {
+	
+
+	
+
+	public String getPhoneno() {
 		return phoneno;
 	}
 
-	public void setPhoneno(double phoneno) {
+	public void setPhoneno(String phoneno) {
 		this.phoneno = phoneno;
 	}
 
-	public double getRating() {
+	public float getRating() {
 		return rating;
 	}
 
-	public void setRating(double rating) {
+	public void setRating(float rating) {
 		this.rating = rating;
 	}
 
@@ -95,13 +99,7 @@ public class ClinicBean {
 		this.cityid = cityid;
 	}
 
-	public int getStateid() {
-		return stateid;
-	}
-
-	public void setStateid(int stateid) {
-		this.stateid = stateid;
-	}
+	
 
 	public int getPincode() {
 		return pincode;
