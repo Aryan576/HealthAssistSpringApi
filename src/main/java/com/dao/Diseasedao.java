@@ -38,4 +38,9 @@ public class Diseasedao {
 		
 	}
 
+	private DiseaseBean getDiseaseById(int diseaseid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
