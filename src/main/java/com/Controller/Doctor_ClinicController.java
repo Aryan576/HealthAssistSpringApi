@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ public class Doctor_ClinicController {
 	public ResponseBean<Doctor_ClinicBean> addDocClinic(@RequestBody Doctor_ClinicBean bean){
 		
 		ResponseBean<Doctor_ClinicBean> response = new ResponseBean<>();
+		System.out.println(bean.getDoctorid());
 		dao.addDoctorClinic(bean);
 		response.setData(bean);
 		response.setMsg("Doctor Clinic Added");
@@ -30,12 +32,12 @@ public class Doctor_ClinicController {
 	}
 	
 	
-	@GetMapping("listDoctClinic")
-	public ResponseBean<java.util.List<Doctor_ClinicBean>> listDoctClinic()
+	@GetMapping("listDoctClinic/{userid}")
+	public ResponseBean<List<Doctor_ClinicBean>> listDoctClinic(@PathVariable("userid") int userid)
 	{
 	ResponseBean<List<Doctor_ClinicBean>> response = new ResponseBean<>();
 
-	List<Doctor_ClinicBean> doctClinicBean = dao.listDoctCLinic();
+	List<Doctor_ClinicBean> doctClinicBean = dao.listDoctCLinic(userid);
 	response.setData(doctClinicBean);
 	response.setMsg("Doctor Clinic Display..!!!!");
 	response.setStatus(200);

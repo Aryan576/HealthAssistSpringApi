@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.ClinicBean;
+import com.bean.PharmacyBean;
 import com.bean.ResponseBean;
 import com.dao.Clinicdao;
 @CrossOrigin
@@ -59,8 +60,9 @@ public class ClinicController {
 		
 	}
 	@PutMapping("updateClinic")
-	public ResponseBean<ClinicBean> updateClinic(ClinicBean clinicbean){
+	public ResponseBean<ClinicBean> updateClinic(@RequestBody ClinicBean clinicbean){
 		ResponseBean<ClinicBean> response =new ResponseBean<>();
+		
 		dao.updateclinic(clinicbean);
 		response.setData(clinicbean);
 		response.setMsg("Clinic Updated");
@@ -82,6 +84,17 @@ public class ClinicController {
 		response.setMsg("List Of Clinics");
 		response.setStatus(200);
 		return response;
+	}
+	
+	@GetMapping("getclinicById/{clinicid}")
+	public ResponseBean<ClinicBean> getPharamcyById(@PathVariable("clinicid")int clinicid,ClinicBean bean){
+		ResponseBean<ClinicBean> response =new ResponseBean<>();
+		bean=dao.getClinicById(clinicid);
+		response.setData(bean);
+		response.setMsg("Pharamcy By ID");
+		response.setStatus(200);
+		return response;
+		
 	}
 	
 	

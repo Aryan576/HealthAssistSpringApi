@@ -28,7 +28,7 @@ public class Clinicdao {
 	public List<ClinicBean> listclinic() {
 		// TODO Auto-generated method stub
 
-		List<ClinicBean> clinicBean = stmt.query("select * from clinic",
+		List<ClinicBean> clinicBean = stmt.query("select * from clinic where isdeleted= 0",
 				BeanPropertyRowMapper.newInstance(ClinicBean.class));
 		return clinicBean;
 	}
@@ -38,7 +38,7 @@ public class Clinicdao {
 		ClinicBean bean = null;
 		bean = getClinicById(clinicid);
 		if (bean != null) {
-			stmt.update("delete from clinic where clinicid =?", clinicid);
+			stmt.update("update clinic set isdeleted = 1 where clinicid=?", clinicid);
 		}
 		return bean;
 	}

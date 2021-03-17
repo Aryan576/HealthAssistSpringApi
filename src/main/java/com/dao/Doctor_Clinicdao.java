@@ -23,9 +23,9 @@ public class Doctor_Clinicdao {
 				bean.getFri(), bean.getSat(), bean.getSun(), bean.getThreshold());
 	}
 
-	public List<Doctor_ClinicBean> listDoctCLinic() {
+	public List<Doctor_ClinicBean> listDoctCLinic(int userid) {
 		// TODO Auto-generated method stub
-		 List<Doctor_ClinicBean> doctClinicBean = stmt.query("select *,clinic.clinicname from doctorclinic as dc join clinic using(clinicid) where dc.clinicid = clinicid and dc.isdeleted = 0",BeanPropertyRowMapper.newInstance(Doctor_ClinicBean.class));
+		 List<Doctor_ClinicBean> doctClinicBean = stmt.query("select dc.*,dp.userid,cli.clinicname,u.firstname from doctorclinic as dc,clinic cli,doctorprofile as dp,users as u where dp.userid = dc.doctorid and cli.clinicid = dc.clinicid and u.userid = dp.userid and dc.isdeleted =0 and u.userid=?",new Object[] {userid},BeanPropertyRowMapper.newInstance(Doctor_ClinicBean.class));
 			return doctClinicBean;
 		
 	}
