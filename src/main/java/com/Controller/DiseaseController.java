@@ -18,12 +18,12 @@ import com.dao.Diseasedao;
 @RestController
 public class DiseaseController {
 	@Autowired
-	Diseasedao dao;
+	Diseasedao diseaseDao;
 	
 	@PostMapping("/addDisease")
 	public ResponseBean<DiseaseBean> addDisease(@RequestBody DiseaseBean diseaseBean) {
 
-		dao.addDisease(diseaseBean);
+		diseaseDao.addDisease(diseaseBean);
 
 		ResponseBean<DiseaseBean> responseBean = new ResponseBean<>();
 
@@ -36,7 +36,7 @@ public class DiseaseController {
 
 	@GetMapping("/listDisease")
 	public ResponseBean<List<DiseaseBean>> listDisease() {
-		List<DiseaseBean> diseaseBean = dao.listDisease();
+		List<DiseaseBean> diseaseBean = diseaseDao.listDisease();
 
 		ResponseBean<List<DiseaseBean>> responseBean = new ResponseBean<>();
 
@@ -46,11 +46,23 @@ public class DiseaseController {
 
 		return responseBean;
 	}
+	
+	 @GetMapping("/getdisease/{diseaseid}")
+	    public ResponseBean<DiseaseBean> getUser(@PathVariable("diseaseid") int diseaseid, DiseaseBean bean) {
+
+	        ResponseBean<DiseaseBean> responseBean = new ResponseBean<>();
+	        bean = diseaseDao.getDiseaseById(diseaseid);
+	        responseBean.setData(bean);
+	        responseBean.setMsg("Single Disease Return");
+	        responseBean.setStatus(200);
+
+	        return responseBean;
+	    }
 
 	@PutMapping("/updateDisease")
 	public ResponseBean<DiseaseBean> updateDisease(@RequestBody DiseaseBean diseaseBean) {
 
-		dao.updateDisease(diseaseBean);
+		diseaseDao.updateDisease(diseaseBean);
 
 		ResponseBean<DiseaseBean> responseBean = new ResponseBean<>();
 
@@ -61,10 +73,10 @@ public class DiseaseController {
 		return responseBean;
 	}
 
-	@DeleteMapping("/deleteDisease/{diseaseid}")
-	public ResponseBean<DiseaseBean> deleteDisease(@PathVariable("diseaseid") int diseaseid) {
+	@DeleteMapping("/deleteDisease/{diseaseId}")
+	public ResponseBean<DiseaseBean> deleteDisease(@PathVariable("diseaseId") int diseaseId) {
 
-		DiseaseBean bean=dao.deleteDisease(diseaseid);
+		diseaseDao.deleteDisease(diseaseId);
 
 		ResponseBean<DiseaseBean> responseBean = new ResponseBean<>();
 
@@ -73,5 +85,6 @@ public class DiseaseController {
 
 		return responseBean;
 	}
+
 
 }

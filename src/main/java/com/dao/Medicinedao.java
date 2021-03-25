@@ -15,8 +15,8 @@ public class Medicinedao {
 	JdbcTemplate stmt;
 	
 	public void addMedicine(MedicineBean medicineBean) {
-		stmt.update("insert into medicine(medicinename,type) values(?,?)", medicineBean.getMedicineName(),
-				medicineBean.getType());
+		stmt.update("insert into medicine(medicinename,medicinetype) values(?,?)", medicineBean.getMedicinename(),
+				medicineBean.getMedicinetype());
 
 	}
 
@@ -27,8 +27,8 @@ public class Medicinedao {
 	}
 
 	public void updateMedicine(MedicineBean medicineBean) {
-		stmt.update("update medicine set medicinename = ?, type = ? where medicineid = ?",
-				medicineBean.getMedicineName(), medicineBean.getType(), medicineBean.getMedicineid());
+		stmt.update("update medicine set medicinename = ?, medicinetype = ? where medicineid = ?",
+				medicineBean.getMedicinename(), medicineBean.getMedicinetype(), medicineBean.getMedicineid());
 
 	}
 

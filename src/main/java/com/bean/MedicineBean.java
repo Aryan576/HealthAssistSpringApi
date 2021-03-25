@@ -2,25 +2,27 @@ package com.bean;
 
 public class MedicineBean {
 	int medicineid;
-	String medicineName;
-	String type;
+	String medicinename;
+	String medicinetype;
 	public int getMedicineid() {
 		return medicineid;
 	}
 	public void setMedicineid(int medicineid) {
 		this.medicineid = medicineid;
 	}
-	public String getMedicineName() {
-		return medicineName;
+	
+	public String getMedicinename() {
+		return medicinename;
 	}
-	public void setMedicineName(String medicineName) {
-		this.medicineName = medicineName;
+	public void setMedicinename(String medicinename) {
+		this.medicinename = medicinename;
 	}
-	public String getType() {
-		return type;
+	public String getMedicinetype() {
+		return medicinetype;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setMedicinetype(String medicinetype) {
+		this.medicinetype = medicinetype;
 	}
+	
 
 }

@@ -43,8 +43,6 @@ public class DoctorProfileBean extends UserBean {
 		this.specialization = specialization;
 	}
 
-	
-
 	public int getExperience() {
 		return experience;
 	}

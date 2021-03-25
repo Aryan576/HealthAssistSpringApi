@@ -50,6 +50,8 @@ public class DoctorProfileController {
 
 		ResponseBean<DoctorProfileBean> response = new ResponseBean<>();
 		System.out.println(bean.getRegisterationno());
+		System.out.println(bean.getStatus());
+
 		dao.updatedoctor(bean);
 		response.setData(bean);
 		response.setMsg("Doctor Profile Updated");

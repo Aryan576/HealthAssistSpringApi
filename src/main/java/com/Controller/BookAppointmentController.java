@@ -1,6 +1,7 @@
 package com.Controller;
 
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,9 @@ public class BookAppointmentController {
 
 	@PostMapping("bookAppointment")
 	public ResponseBean<BookAppointmentBean> bookAppointment(@RequestBody BookAppointmentBean bean) {
-
+			
 		ResponseBean<BookAppointmentBean> response = new ResponseBean<>();
+		bean.setApp_create_date(new Date());
 		dao.bookppointment(bean);
 		response.setData(bean);
 		response.setMsg("AppointmentBooked...");
@@ -41,6 +43,19 @@ public class BookAppointmentController {
 	public ResponseBean<List<BookAppointmentBean>> ListAppointment() {
 		ResponseBean<List<BookAppointmentBean>> response = new ResponseBean<>();
 		List<BookAppointmentBean> bean = dao.ListAppointment();
+
+		response.setData(bean);
+		response.setMsg("Appointment List");
+		response.setStatus(200);
+
+		return response;
+
+	}
+	
+	@GetMapping("ListAppointmentUser/{userid}")
+	public ResponseBean<List<BookAppointmentBean>> ListAppointment(@PathVariable("userid") int userid) {
+		ResponseBean<List<BookAppointmentBean>> response = new ResponseBean<>();
+		List<BookAppointmentBean> bean = dao.ListAppointment(userid);
 
 		response.setData(bean);
 		response.setMsg("Appointment List");
@@ -88,4 +103,15 @@ public class BookAppointmentController {
 		return response;
 		
 	}
+	
+	 @GetMapping("/listAppointmentForDoctor/{userid}")
+	    public ResponseBean<java.util.List<BookAppointmentBean>> listAppointmentForDoctor(@PathVariable("userid") int userid) {
+	        ResponseBean<java.util.List<BookAppointmentBean>> response = new ResponseBean<>();
+	        System.out.println("Appointment ID "+userid);
+	        java.util.List<BookAppointmentBean> appointmentBean = dao.listAppointmentForDoctor(userid);
+	        response.setData(appointmentBean);
+	        response.setMsg("Appointment List Display..!!!!");
+	        response.setStatus(201);
+	        return response;
+	    }
 }

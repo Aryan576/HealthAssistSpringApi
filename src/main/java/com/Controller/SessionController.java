@@ -1,6 +1,5 @@
 package com.Controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.DoctorProfileBean;
 import com.bean.LoginBean;
+import com.bean.PatientProfileBean;
 import com.bean.ResponseBean;
 
 import com.bean.UserBean;
@@ -56,24 +56,45 @@ public class SessionController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseBean<UserBean> signup(@RequestBody UserBean userBean) {
-
-		
+	public ResponseBean<UserBean> signup(@RequestBody PatientProfileBean patientProfile) {
 
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
-			if(sessionDao.getUserByEmail(userBean.getEmail())!=null)
-			{
-				responseBean.setMsg("You Are Already Register");
-				responseBean.setStatus(201);
-					
-			}else {
-				userBean.setOtp(OtpService.generateOtp());
-				mailerService.sendOtpForUserVerification(userBean);
-				sessionDao.insertUser(userBean);
-					responseBean.setData(userBean);
-					responseBean.setMsg("user successfully signup!!");
-					responseBean.setStatus(200);
-			}
+		if (sessionDao.getUserByEmail(patientProfile.getEmail()) != null) {
+			responseBean.setMsg("You Are Already Register");
+			responseBean.setStatus(201);
+
+		} else {
+			patientProfile.setOtp(OtpService.generateOtp());
+			mailerService.sendOtpForUserVerification(patientProfile);
+			/* sessionDao.insertUser(userBean); */
+			System.out.println(patientProfile.getRoleid());
+
+			patientProfile.setUserid(patientProfile.getUserid());
+			patientProfile.setPatientname(patientProfile.getFirstname());
+			sessionDao.insertPatientProfile(patientProfile);
+			responseBean.setData(patientProfile);
+			responseBean.setMsg("user successfully signup!!");
+			responseBean.setStatus(200);
+		}
+
+		return responseBean;
+	}
+
+	@PostMapping("adminAddUsers")
+	public ResponseBean<UserBean> addAdminUser(@RequestBody UserBean user) {
+		ResponseBean<UserBean> responseBean = new ResponseBean<>();
+		if (sessionDao.getUserByEmail(user.getEmail()) != null) {
+			responseBean.setMsg("You Are Already Register");
+			responseBean.setStatus(201);
+
+		} else {
+
+			sessionDao.addAdminUser(user);
+			responseBean.setData(user);
+			responseBean.setMsg("user successfully Added");
+			responseBean.setStatus(200);
+
+		}
 
 		return responseBean;
 	}
@@ -94,6 +115,19 @@ public class SessionController {
 
 		return responseBean;
 	}
+	
+	
+	@PostMapping("addAdminPatient")
+	public ResponseBean<PatientProfileBean> addAdminPatient(@RequestBody PatientProfileBean patientBean)
+	{
+		sessionDao.addPatient(patientBean);
+		ResponseBean<PatientProfileBean> response = new ResponseBean<>();
+		response.setData(patientBean);
+		response.setMsg("Patient Added successfully...!!");
+		response.setStatus(200);
+		return response;
+
+	}
 
 	@GetMapping("users")
 	public ResponseBean<List<UserBean>> Listuser() {
@@ -108,7 +142,7 @@ public class SessionController {
 
 	@GetMapping("resetpassword/{email}")
 	public ResponseBean<UserBean> sendOtpForResetPassword(@PathVariable("email") String email, UserBean userBean) {
-			System.out.println("Reset Called");
+		System.out.println("Reset Called");
 		userBean = sessionDao.getUserByEmail(email);
 		ResponseBean<UserBean> responseBean = new ResponseBean<>();
 

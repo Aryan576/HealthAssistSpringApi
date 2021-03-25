@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.PharmacyBean;
 import com.bean.ResponseBean;
+import com.bean.UserBean;
 import com.dao.Pharmacydao;
 @CrossOrigin
 @RestController
@@ -88,5 +89,16 @@ public class PharmacyController {
 		return response;
 		
 	}
+	
+	 @GetMapping("/getAssignUserPharmacy")
+	    public ResponseBean<java.util.List<UserBean>> getAssignUserPharmacy() {
+	        ResponseBean<java.util.List<UserBean>> response = new ResponseBean<>();
+
+	        java.util.List<UserBean> pharmacyBean = dao.listAssignUserPharmacy();
+	        response.setData(pharmacyBean);
+	        response.setMsg("User Pharmacy List Display..!!!!");
+	        response.setStatus(201);
+	        return response;
+	    }
 	
 }

@@ -13,34 +13,41 @@ import com.bean.DiseaseBean;
 public class Diseasedao {
 	@Autowired
 	JdbcTemplate stmt;
-	public void addDisease(DiseaseBean diseaseBean) {
-		stmt.update("insert into disease(diseasename) values(?)", diseaseBean.getDiseasename());
 
+	public void addDisease(DiseaseBean diseaseBean) {
+		// TODO Auto-generated method stub
+		stmt.update("insert into disease(diseasename) values(?)", diseaseBean.getDiseasename());
 	}
 
 	public List<DiseaseBean> listDisease() {
+		// TODO Auto-generated method stub
 		List<DiseaseBean> diseaseBean = stmt.query("select * from disease where isdeleted = 0",
 				BeanPropertyRowMapper.newInstance(DiseaseBean.class));
 		return diseaseBean;
 	}
+	
 
 	public void updateDisease(DiseaseBean diseaseBean) {
+		// TODO Auto-generated method stub
 		stmt.update("update disease set diseasename = ? where diseaseid = ?",diseaseBean.getDiseasename(),diseaseBean.getDiseaseid());
 	}
 
-	public DiseaseBean deleteDisease(int diseaseid) {
-		DiseaseBean bean=null;
-		bean=getDiseaseById(diseaseid);
-		
-		stmt.update("delete from disease where diseaseid = ?",diseaseid);
-		
-		return bean;
-		
+	public void deleteDisease(int diseaseId) {
+		// TODO Auto-generated method stub
+		stmt.update("update disease set isdeleted=1 where diseaseid = ?",diseaseId);
 	}
 
-	private DiseaseBean getDiseaseById(int diseaseid) {
+	public DiseaseBean getDiseaseById(int diseaseid) {
 		// TODO Auto-generated method stub
-		return null;
+		DiseaseBean bean = null;
+        try {
+            bean = stmt.queryForObject("select * from disease where diseaseid=?", new Object[]{diseaseid},
+                    BeanPropertyRowMapper.newInstance(DiseaseBean.class));
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+        }
+		return bean;
 	}
 
 }

@@ -18,7 +18,85 @@ public class BookAppointmentBean {
 	Date appointMentDate;
 	String appointMentTime;
 	
+	  String patientname;
+	    String statusname;
+	    String firstname;
+	    String lastname;
+	    String clinicname;
+	    String statusreason;
+	    String email;
+	    String phoneno;
+	    String age;
+	    String cityname;
+	    String gender;
 	
+	
+	public String getPatientname() {
+			return patientname;
+		}
+		public void setPatientname(String patientname) {
+			this.patientname = patientname;
+		}
+		public String getStatusname() {
+			return statusname;
+		}
+		public void setStatusname(String statusname) {
+			this.statusname = statusname;
+		}
+		public String getFirstname() {
+			return firstname;
+		}
+		public void setFirstname(String firstname) {
+			this.firstname = firstname;
+		}
+		public String getLastname() {
+			return lastname;
+		}
+		public void setLastname(String lastname) {
+			this.lastname = lastname;
+		}
+		public String getClinicname() {
+			return clinicname;
+		}
+		public void setClinicname(String clinicname) {
+			this.clinicname = clinicname;
+		}
+		public String getStatusreason() {
+			return statusreason;
+		}
+		public void setStatusreason(String statusreason) {
+			this.statusreason = statusreason;
+		}
+		public String getEmail() {
+			return email;
+		}
+		public void setEmail(String email) {
+			this.email = email;
+		}
+		public String getPhoneno() {
+			return phoneno;
+		}
+		public void setPhoneno(String phoneno) {
+			this.phoneno = phoneno;
+		}
+		public String getAge() {
+			return age;
+		}
+		public void setAge(String age) {
+			this.age = age;
+		}
+		public String getCityname() {
+			return cityname;
+		}
+		public void setCityname(String cityname) {
+			this.cityname = cityname;
+		}
+		public String getGender() {
+			return gender;
+		}
+		public void setGender(String gender) {
+			this.gender = gender;
+		}
 	public int getAppointmentid() {
 		return appointmentid;
 	}

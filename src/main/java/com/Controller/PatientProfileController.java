@@ -72,5 +72,42 @@ public class PatientProfileController {
 
 		return response;
 	}
+	
+	@GetMapping("/getuserPatient/{userid}")
+	public ResponseBean<PatientProfileBean> getUser(@PathVariable("userid") int userid, PatientProfileBean bean) {
+
+		ResponseBean<PatientProfileBean> responseBean = new ResponseBean<>();
+		bean = dao.getPatientById(userid);
+		responseBean.setData(bean);
+		responseBean.setMsg("Single User Return");
+		responseBean.setStatus(200);
+
+		return responseBean;
+	}
+    
+    @GetMapping("/getPatientprofile/{userid}")
+	public ResponseBean<PatientProfileBean> getProfile(@PathVariable("userid") int userid, PatientProfileBean bean) {
+
+		ResponseBean<PatientProfileBean> responseBean = new ResponseBean<>();
+		bean = dao.getPatientProfileById(userid);
+		responseBean.setData(bean);
+		responseBean.setMsg("Single User Return");
+		responseBean.setStatus(200);
+
+		return responseBean;
+	}
+    
+    
+    @GetMapping("/listUserPatient/{userid}")
+    public ResponseBean<java.util.List<PatientProfileBean>> listUserPatient(@PathVariable("userid") int userid) {
+        ResponseBean<java.util.List<PatientProfileBean>> response = new ResponseBean<>();
+     
+        java.util.List<PatientProfileBean> userPatientBean = dao.listUserPatient(userid);
+        response.setData(userPatientBean);
+        response.setMsg("User Patient Display..!!!!");
+        response.setStatus(201);
+        return response;
+    }
+    
 
 }

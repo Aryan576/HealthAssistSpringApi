@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bean.PharmacyBean;
+import com.bean.UserBean;
 
 @Repository
 public class Pharmacydao {
@@ -25,7 +26,7 @@ public class Pharmacydao {
 
 	public List<PharmacyBean> listpharmacy() {
 		// TODO Auto-generated method stub
-		List<PharmacyBean> bean = stmt.query("select *,city.cityname from pharmacy as p join city using(cityid) where p.cityid = cityid and isdeleted = 0",
+		List<PharmacyBean> bean = stmt.query("select *,city.cityname from pharmacy as p join city using(cityid) where p.cityid = cityid and p.isdeleted = 0",
 				BeanPropertyRowMapper.newInstance(PharmacyBean.class));
 		return bean;
 	}
@@ -62,5 +63,10 @@ public class Pharmacydao {
 				bean.getLat(), bean.getLog(), bean.getAbout(), bean.getCityid(), bean.getPincode(),bean.getTiming(),
 				bean.getPharmacyid());
 
+	}
+
+	public List<UserBean> listAssignUserPharmacy() {
+		 java.util.List<UserBean> pharmacyBean = stmt.query("select * from users where roleid=3", BeanPropertyRowMapper.newInstance(UserBean.class));
+			return pharmacyBean;
 	}
 }

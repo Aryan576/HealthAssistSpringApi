@@ -28,7 +28,7 @@ public class MedicineController {
 		dao.addMedicine(medicineBean);
 		
 		ResponseBean<MedicineBean> responseBean = new ResponseBean<>();
-		
+		System.out.println(medicineBean.getMedicinetype());
 		responseBean.setData(medicineBean);
 		responseBean.setMsg("Medicine Added!!");
 		responseBean.setStatus(200);
@@ -50,7 +50,7 @@ public class MedicineController {
 	}
 	
 	@GetMapping("getMedicineById/{medicineid}")
-	public ResponseBean<MedicineBean> getMedicineById(@RequestBody @PathVariable("medicineid") int medicineid,MedicineBean medicineBean){
+	public ResponseBean<MedicineBean> getMedicineById( @PathVariable("medicineid") int medicineid,MedicineBean medicineBean){
 		medicineBean = dao.getMedicineById(medicineid);
 		
 		ResponseBean<MedicineBean> responseBean = new ResponseBean<>();

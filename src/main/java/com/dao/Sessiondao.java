@@ -15,6 +15,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import com.bean.DoctorProfileBean;
+import com.bean.PatientProfileBean;
 import com.bean.UserBean;
 
 @Repository
@@ -82,7 +83,8 @@ public class Sessiondao {
 
 	public List<UserBean> listuser() {
 		// TODO Auto-generated method stub
-		List<UserBean> user = stmt.query("select * from users", BeanPropertyRowMapper.newInstance(UserBean.class));
+		List<UserBean> user = stmt.query("select * from users where isdeleted=0",
+				BeanPropertyRowMapper.newInstance(UserBean.class));
 
 		return user;
 	}
@@ -100,8 +102,7 @@ public class Sessiondao {
 		}
 		return signup;
 	}
-	
-	
+
 	public UserBean getUserByEmail(String email) {
 
 		UserBean userBean = null;
@@ -117,7 +118,46 @@ public class Sessiondao {
 	}
 
 	public void updatePassword(UserBean userBean) {
-		stmt.update("update users set password = ? where email  = ? ",userBean.getPassword(),userBean.getEmail());
+		stmt.update("update users set password = ? where email  = ? ", userBean.getPassword(), userBean.getEmail());
+	}
+
+	public void insertPatientProfile(PatientProfileBean patientProfile) {
+		// TODO Auto-generated method stub
+
+		UserBean user = new UserBean();
+		user.setRoleid(4);
+		int userId = insertUser(patientProfile);
+		patientProfile.setCityid(0);
+
+		stmt.update(
+				"insert into patientprofile(patientname,gender,phoneno,email,age,profilepic,pincode,userid) values(?,?,?,?,?,?,?,?)",
+				patientProfile.getPatientname(), patientProfile.getGender(), patientProfile.getPhoneno(),
+				patientProfile.getEmail(), patientProfile.getAge(), patientProfile.getProfilePic(),
+				patientProfile.getPincode(), patientProfile.getUserid());
+
+	}
+
+	public void addAdminUser(UserBean user) {
+		// TODO Auto-generated method stub
+		stmt.update("INSERT INTO users(email, password, firstname, lastname, gender, roleid) values(?, ?, ?, ?, ?, ?)",
+				user.getEmail(), user.getPassword(), user.getFirstname(), user.getLastname(), user.getGender(),
+				user.getRoleid());
+	}
+
+	public void addPatient(PatientProfileBean patientBean) {
+		// TODO Auto-generated method stub
+
+		UserBean userBean = new UserBean();
+		userBean.setRoleid(4);
+		int userId = insertUser(patientBean);
+		patientBean.setUserid(userId);
+		patientBean.setPatientname(patientBean.getFirstname());
+		stmt.update(
+				"insert into patientprofile(patientname,gender,phoneno,email,age,profilepic,cityid,pincode,userid) values(?,?,?,?,?,?,?,?,?)",
+				patientBean.getPatientname(), patientBean.getGender(), patientBean.getPhoneno(), patientBean.getEmail(),
+				patientBean.getAge(), patientBean.getProfilePic(), patientBean.getCityid(), patientBean.getPincode(),
+				patientBean.getUserid());
+
 	}
 
 }

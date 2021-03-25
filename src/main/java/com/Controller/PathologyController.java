@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bean.PathologyBean;
 import com.bean.ResponseBean;
+import com.bean.UserBean;
 import com.dao.Pathologydao;
 @CrossOrigin
 @RestController
@@ -84,4 +85,28 @@ public class PathologyController {
 		return response;
 		
 	}
+	
+	 @GetMapping("/getAssignUserPathology")
+	    public ResponseBean<java.util.List<UserBean>> getAssignUserPathology() {
+	        ResponseBean<java.util.List<UserBean>> response = new ResponseBean<>();
+
+	        java.util.List<UserBean> pathologyBean = dao.listAssignUserPathology();
+	        response.setData(pathologyBean);
+	        response.setMsg("User Pathology List Display..!!!!");
+	        response.setStatus(201);
+	        return response;
+	    }
+	 
+	 @PostMapping("/addAssignUserPathology")
+	    public ResponseBean<PathologyBean> addAssignUserPathology(@RequestBody PathologyBean pathologyBean) {
+	  
+	    	dao.addAssignUserPathology(pathologyBean);
+	    	System.out.println("aas"+pathologyBean.getPathologyname());
+	    	System.out.println("bvf"+pathologyBean.getRating());
+	        ResponseBean<PathologyBean> response = new ResponseBean<>();
+	        response.setData(pathologyBean);
+	        response.setMsg("User Pathology Added Successfully...!!");
+	        response.setStatus(200);
+	        return response;
+	    }
 }

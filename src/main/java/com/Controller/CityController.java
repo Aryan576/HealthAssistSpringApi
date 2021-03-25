@@ -15,33 +15,65 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bean.CityBean;
 import com.bean.ResponseBean;
 import com.dao.Citydao;
+
 @CrossOrigin
 @RestController
 public class CityController {
 
 	@Autowired
-	Citydao dao;
+	Citydao citiesDao;
 
-	@PostMapping("addCity")
-	public ResponseBean<CityBean> addcity(@RequestBody CityBean bean) {
+	@PostMapping("/addCities")
+	public ResponseBean<CityBean> addCities(@RequestBody CityBean citiesBean) {
+		citiesDao.addCities(citiesBean);
 		ResponseBean<CityBean> response = new ResponseBean<>();
-		dao.addcity(bean);
-		response.setData(bean);
-		response.setMsg("City Added");
-		response.setStatus(201);
+		response.setData(citiesBean);
+		response.setMsg("Cities Inserted successfully...!!");
+		response.setStatus(200);
 		return response;
+
 	}
 
-	@GetMapping("getCity")
-	public ResponseBean<List<CityBean>> getCity() {
+	@GetMapping("/listCities")
+	public ResponseBean<List<CityBean>> listCities() {
 		ResponseBean<List<CityBean>> response = new ResponseBean<>();
-		List<CityBean> bean = dao.getCity();
-		response.setData(bean);
-		response.setMsg("Lsit Of Cities");
+
+		List<CityBean> roleBean = citiesDao.listCities();
+		response.setData(roleBean);
+		response.setMsg("Cities List Display..!!!!");
 		response.setStatus(201);
 		return response;
 	}
 
-	
+	@DeleteMapping("/addCities/{CityId}")
+	public ResponseBean<CityBean> deleteCities(@PathVariable("CityId") int CityId) {
+
+		ResponseBean<CityBean> response = new ResponseBean<>();
+		citiesDao.deleteCities(CityId);
+		response.setMsg("Deleted Successfully..!!");
+		response.setStatus(200);
+		return response;
+	}
+
+	@GetMapping("/getCities/{cityid}")
+	public ResponseBean<CityBean> getCities(@PathVariable("cityid") int cityid, CityBean bean) {
+		ResponseBean<CityBean> responseBean = new ResponseBean<>();
+		bean = citiesDao.getCityById(cityid);
+		responseBean.setData(bean);
+		responseBean.setMsg("Single City Return");
+		responseBean.setStatus(200);
+
+		return responseBean;
+	}
+
+	@PutMapping("/updateCities")
+	public ResponseBean<CityBean> updateCities(@RequestBody CityBean cityBean) {
+		citiesDao.updateCities(cityBean);
+		ResponseBean<CityBean> response = new ResponseBean<>();
+		response.setData(cityBean);
+		response.setMsg("Cities Updated Successfully..!!");
+
+		return response;
+	}
 
 }

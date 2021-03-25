@@ -15,6 +15,15 @@ public class PathologyBean {
 	int pincode;
 	String specialization;
 	String cityname;
+	int userid;
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
 
 	public String getCityname() {
 		return cityname;

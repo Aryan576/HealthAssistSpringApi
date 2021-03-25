@@ -17,7 +17,7 @@ public class BookAppointmentdao {
 
 	public void bookppointment(BookAppointmentBean bean) {
 		// TODO Auto-generated method stub
-
+		bean.setStatusid(4);
 		stmt.update(
 				"insert into appointment (patientid,doctorid,statusid,appcreatedate,comment,clinicid,reference,complain,appointmentdate,appointmenttime) values(?,?,?,?,?,?,?,?,?,?)",
 				bean.getPatientid(), bean.getDoctorid(), bean.getStatusid(), bean.getApp_create_date(),
@@ -75,6 +75,22 @@ public class BookAppointmentdao {
 		stmt.update("update appointment set statusid=? where appointmentid=?", appointmentBean.getStatusid(),
 				appointmentBean.getAppointmentid());
 
+	}
+
+	public List<BookAppointmentBean> ListAppointment(int userid) {
+		// TODO Auto-generated method stub
+		List<BookAppointmentBean> appointmentBean = stmt.query(
+				"select p.*,a.*,s.*,u.*,dp.*,cli.* from patientprofile as p,clinic as cli,doctorprofile as dp,users as u,appointment as a,appointmentstatus as s where a.patientid = p.patientid and a.clinicid = cli.clinicid and a.statusid = s.statusid and u.userid = a.doctorid and a.doctorid = dp.userid  and u.userid = ?",
+				new Object[] { userid }, BeanPropertyRowMapper.newInstance(BookAppointmentBean.class));
+		return appointmentBean;
+
+	}
+
+	public List<BookAppointmentBean> listAppointmentForDoctor(int userid) {
+		// TODO Auto-generated method stub
+		java.util.List<BookAppointmentBean> appointmentBean = stmt.query("select p.*,a.*,s.*,dp.*,cli.* from patientprofile as p,clinic as cli,users as u,doctorprofile as dp,appointment as a,appointmentstatus as s where a.patientid = p.patientid and u.userid = dp.userid and a.clinicid = cli.clinicid and a.statusid = s.statusid and dp.userid = ?"
+        		, new Object[] {userid} ,BeanPropertyRowMapper.newInstance(BookAppointmentBean.class));
+        return appointmentBean;
 	}
 
 }
