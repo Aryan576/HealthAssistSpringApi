@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -21,88 +22,36 @@ public class Prescriptiondao {
 	@Autowired
 	JdbcTemplate stmt;
 
-	public int addPrescription(PrescriptionBean prescriptionBean) {
-		// TODO Auto-generated method stub
-		KeyHolder keyHolder = new GeneratedKeyHolder();
-    	String insertSql = "insert into prescription(patientprofileid,doctorprofileid,appointmentid,description,prescriptiondate,generaladvice,followupcomment) values (?,?,?,?,?,?,?)";
-    	
-    	
-    	stmt.update(new PreparedStatementCreator() {
-			
-			@Override
-			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		};() {
-
-            @Override
-            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-
-                PreparedStatement pstmt = con.prepareStatement(insertSql, java.sql.Statement.RETURN_GENERATED_KEYS);
-                pstmt.setInt(1, prescriptionBean.getPatientprofileid());
-                pstmt.setInt(2, prescriptionBean.getDoctorprofileid());
-                pstmt.setInt(3, prescriptionBean.getAppointmentid());
-                pstmt.setString(4, prescriptionBean.getDescription());
-                pstmt.setDate(5, prescriptionBean.getPrescriptiondate());
-                pstmt.setString(6, prescriptionBean.getGeneraladvice());
-                pstmt.setString(7, prescriptionBean.getFollowupcomment());
-                
-                return pstmt;
-            }
-        }, keyHolder);
-    	int prescriptionid = (Integer) keyHolder.getKeys().get("prescriptionid");
-    	prescriptionBean.setPrescriptionid(prescriptionid);
-        return prescriptionBean.getPrescriptionid();
-		
-	}
-	
-	public void addPrescriptionMedicine(PrescriptionBean prescriptionBean) {
-		// TODO Auto-generated method stub
-		int prescriptionid = addPrescription(prescriptionBean);
-
-        
-		stmt.update("insert into prescriptionmedicine(prescriptionid,medicineid,frequency,duration,instructions) values(?,?,?,?,?)", 
-				prescriptionBean.getMedicineid(),
-				prescriptionBean.getFrequency(),prescriptionBean.getDuration(),
-				prescriptionBean.getInstructions());
-		
-	}
-
-	public List<PrescriptionBean> listPrescription() {
-		// TODO Auto-generated method stub
-		List<PrescriptionBean> prescriptionBean = stmt.query("select * from prescription",
-				BeanPropertyRowMapper.newInstance(PrescriptionBean.class));
-		return prescriptionBean;
-	}
-
-	public PrescriptionBean getPrescriptionById(int prescriptionId) {
-		// TODO Auto-generated method stub
-		PrescriptionBean prescriptionBean = null;
-
-		try {
-			prescriptionBean = stmt.queryForObject("select * from prescription where prescriptionid = ?",
-					new Object[prescriptionId], BeanPropertyRowMapper.newInstance(PrescriptionBean.class));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return prescriptionBean;
-	
-	}
-
-	public void updatePrescription(PrescriptionBean prescriptionBean) {
-		// TODO Auto-generated method stub
-		stmt.update(
-				"update prescription set patientprofileid = ?,doctorprofileid = ?,appointmentid = ?,description = ?,prescriptiondate = ?,generaladvice = ?,followupcomment = ? where prescriptionid = ?",
-				prescriptionBean.getPatientprofileid(), prescriptionBean.getDoctorprofileid(),
-				prescriptionBean.getAppointmentid(), prescriptionBean.getDescription(),
-				prescriptionBean.getPrescriptiondate(), prescriptionBean.getGeneraladvice(),
-				prescriptionBean.getFollowupcomment(), prescriptionBean.getPrescriptiondate());
-	}
-
 	public void deletePrescription(int prescriptionId) {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void updatePrescription(PrescriptionBean prescriptionBean) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public PrescriptionBean getPrescriptionById(int prescriptionId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<PrescriptionBean> listPrescription() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void addPrescriptionMedicine(PrescriptionBean prescriptionBean) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void addPrescription(PrescriptionBean prescriptionBean) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }
