@@ -61,9 +61,9 @@ public class Prescriptiondao {
 		// TODO Auto-generated method stub
 		int prescriptionid = addPrescription(prescriptionBean);
 
-        prescriptionBean.setPrescriptionid(prescriptionid);
+        
 		stmt.update("insert into prescriptionmedicine(prescriptionid,medicineid,frequency,duration,instructions) values(?,?,?,?,?)", 
-				prescriptionBean.getPrescriptionid(),prescriptionBean.getMedicineid(),
+				prescriptionBean.getMedicineid(),
 				prescriptionBean.getFrequency(),prescriptionBean.getDuration(),
 				prescriptionBean.getInstructions());
 		
