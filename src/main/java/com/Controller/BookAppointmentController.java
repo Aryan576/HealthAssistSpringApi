@@ -114,4 +114,16 @@ public class BookAppointmentController {
 	        response.setStatus(201);
 	        return response;
 	    }
+	 
+	 @GetMapping("/getappointmentid/{appointmentid}")
+	    public ResponseBean<BookAppointmentBean> getUser(@PathVariable("appointmentid") int appointmentid, BookAppointmentBean bean) {
+
+	        ResponseBean<BookAppointmentBean> responseBean = new ResponseBean<>();
+	        bean = dao.getAppointmentById(appointmentid);
+	        responseBean.setData(bean);
+	        responseBean.setMsg("Single Appointment Return");
+	        responseBean.setStatus(200);
+
+	        return responseBean;
+	    }
 }

@@ -44,11 +44,11 @@ public class BookAppointmentdao {
 		return bean;
 	}
 
-	private BookAppointmentBean getAppointmentById(int appointmentid) {
+	public BookAppointmentBean getAppointmentById(int appointmentid) {
 		// TODO Auto-generated method stub
 		BookAppointmentBean bean = null;
 		try {
-			bean = stmt.queryForObject("select * from appointment where appointmentid=?",
+			bean = stmt.queryForObject("select ap.*,pp.*,cli.* from appointment as ap,patientprofile as pp,clinic as cli where  ap.patientid=pp.patientid and ap.clinicid=cli.clinicid and  ap.appointmentid=?",
 					new Object[] { appointmentid }, BeanPropertyRowMapper.newInstance(BookAppointmentBean.class));
 		} catch (Exception e) {
 			// TODO: handle exception

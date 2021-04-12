@@ -1,8 +1,10 @@
 package com.bean;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class PrescriptionBean {
+	
+	int prescriptionid;
 	int patientprofileid;
 	int doctorprofileid;
 	int appointmentid;
@@ -14,6 +16,16 @@ public class PrescriptionBean {
 	String frequency;
 	String duration;
 	String instructions;
+	
+	
+
+	public int getPrescriptionid() {
+		return prescriptionid;
+	}
+
+	public void setPrescriptionid(int prescriptionid) {
+		this.prescriptionid = prescriptionid;
+	}
 
 	public int getPatientprofileid() {
 		return patientprofileid;

@@ -86,9 +86,9 @@ public class PrescriptionController {
 		return responseBean;
 	}
 	
-	@DeleteMapping("/deletePrescription/{prescriptionId}")
-	public ResponseBean<PrescriptionBean> deletePrescription(@PathVariable("prescriptionId") int prescriptionId){
-		prescriptionDao.deletePrescription(prescriptionId);
+	@DeleteMapping("/deletePrescription/{prescriptionid}")
+	public ResponseBean<PrescriptionBean> deletePrescription(@PathVariable("prescriptionid") int prescriptionid){
+		prescriptionDao.deletePrescription(prescriptionid);
 	
 		ResponseBean<PrescriptionBean> responseBean = new ResponseBean<>();
 		
