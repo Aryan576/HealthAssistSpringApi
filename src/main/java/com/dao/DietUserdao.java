@@ -21,7 +21,7 @@ public class DietUserdao {
 
 	public List<DietUserBean> listDietUser(int patientid) {
 		// TODO Auto-generated method stub
-		List<DietUserBean> dietUserBean = stmt.query("select du.*,d.*,pp.* from diet_user as du,patientprofile as pp,diet as d where du.userid = pp.patientid and du.dietid = d.dietid and pp.patientid = ?",
+		List<DietUserBean> dietUserBean = stmt.query("select du.*,d.*,pp.* from dietuser as du,patientprofile as pp,diet as d where du.userid = pp.patientid and du.dietid = d.dietid and pp.patientid = ?",
 				new Object[] {patientid},BeanPropertyRowMapper.newInstance(DietUserBean.class));
 		return dietUserBean;
 	}

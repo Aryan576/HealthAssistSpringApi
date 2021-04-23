@@ -30,4 +30,9 @@ public class Doctor_Clinicdao {
 		
 	}
 
+	public List<Doctor_ClinicBean> listDoctClinicTiming(int clinicid) {
+		java.util.List<Doctor_ClinicBean> doctClinicBean = stmt.query("select dc.* from doctorclinic as dc where dc.clinicid = ?", new Object[]{clinicid}, BeanPropertyRowMapper.newInstance(Doctor_ClinicBean.class));
+        return doctClinicBean;
+	}
+
 }

@@ -1,6 +1,6 @@
 package com.Controller;
 
-import java.lang.annotation.Documented;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +74,52 @@ public class DoctorProfileController {
 		}
 		return response;
 
+	}
+	
+	
+	@GetMapping("/kycDoctor")
+	public ResponseBean<java.util.List<DoctorProfileBean>> kycDoctor() {
+		ResponseBean<java.util.List<DoctorProfileBean>> response = new ResponseBean<>();
+
+		java.util.List<DoctorProfileBean> doctorBean = dao.kycDoctor();
+		response.setData(doctorBean);
+		response.setMsg("KYC Doctor List Display..!!!!");
+		response.setStatus(201);
+		return response;
+	}
+	
+	@GetMapping("/activeDoctor")
+	public ResponseBean<java.util.List<DoctorProfileBean>> activeDoctor() {
+		ResponseBean<java.util.List<DoctorProfileBean>> response = new ResponseBean<>();
+
+		java.util.List<DoctorProfileBean> doctorBean = dao.activeDoctor();
+		response.setData(doctorBean);
+		response.setMsg("Active Doctor List Display..!!!!");
+		response.setStatus(201);
+		return response;
+	}
+	
+	@GetMapping("/pendingDoctor")
+	public ResponseBean<java.util.List<DoctorProfileBean>> pendingDoctor() {
+		ResponseBean<java.util.List<DoctorProfileBean>> response = new ResponseBean<>();
+
+		java.util.List<DoctorProfileBean> doctorBean = dao.pendingDoctor();
+		response.setData(doctorBean);
+		response.setMsg("Pending Doctor List Display..!!!!");
+		response.setStatus(201);
+		return response;
+	}
+	
+	
+	@GetMapping("/pauseDoctor")
+	public ResponseBean<java.util.List<DoctorProfileBean>> pauseDoctor() {
+		ResponseBean<java.util.List<DoctorProfileBean>> response = new ResponseBean<>();
+
+		java.util.List<DoctorProfileBean> doctorBean = dao.pauseDoctor();
+		response.setData(doctorBean);
+		response.setMsg("Pause Doctor List Display..!!!!");
+		response.setStatus(201);
+		return response;
 	}
 
 }

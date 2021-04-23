@@ -19,6 +19,8 @@ public class PrescriptionmedicineController {
 
 	@Autowired
 	Prescriptionmedicinedao prescriptionmedicineDao;
+	
+	
 
 	@GetMapping("/listPrescriptionMedicine")
 	public ResponseBean<java.util.List<PrescriptionmedicineBean>> listPrescriptionMedicine() {
@@ -66,5 +68,7 @@ public class PrescriptionmedicineController {
 		response.setStatus(200);
 		return response;
 	}
+	
+	
 
 }

@@ -51,7 +51,7 @@ public class PatientProfiledao {
 
 		PatientProfileBean bean = null;
 		try {
-			bean = stmt.queryForObject("select * from patientprofile where userid=? ", new Object[] { userid },
+			bean = stmt.queryForObject("select *,city.cityname from patientprofile as p join city using(cityid) where p.cityid = cityid and userid=? limit 1 ", new Object[] { userid },
 					BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -91,6 +91,29 @@ public class PatientProfiledao {
 		// TODO Auto-generated method stub
 		 java.util.List<PatientProfileBean> userPatientBean = stmt.query("select pp.*,up.userid from patientprofile as pp,users as up where pp.userid = up.userid and pp.isdeleted =0  and up.userid= ?", new Object[]{userid}, BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
 	     return userPatientBean;
+	}
+
+	public PatientProfileBean getFamilyMember(int patientid) {
+		PatientProfileBean bean = null;
+        try {
+            bean = stmt.queryForObject("select *,city.cityname from patientprofile as p join city using(cityid) where p.cityid = cityid and patientid = ?", new Object[]{patientid},
+                    BeanPropertyRowMapper.newInstance(PatientProfileBean.class));
+        } catch (Exception e) {
+            // TODO: handle exception
+            e.printStackTrace();
+     
+        }
+        return bean;
+	}
+
+	public void updateFamilyMember(PatientProfileBean patientBean) {
+		// TODO Auto-generated method stub
+		
+	     stmt.update("update patientprofile set patientname=?,gender=?,phoneno=?,email=?,age=?,userid=? where patientid=?",
+	        		patientBean.getPatientname(), patientBean.getGender(), patientBean.getPhoneno(), patientBean.getEmail(),
+	                patientBean.getAge(),patientBean.getUserid(), patientBean.getPatientid());
+	    
+		
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bean.BookAppointmentBean;
 import com.bean.ResponseBean;
 import com.dao.BookAppointmentdao;
+import com.service.MailerService;
 
 @CrossOrigin
 @RestController
@@ -24,6 +25,8 @@ public class BookAppointmentController {
 
 	@Autowired
 	BookAppointmentdao dao;
+	@Autowired
+	MailerService mailerService;
 
 	@PostMapping("bookAppointment")
 	public ResponseBean<BookAppointmentBean> bookAppointment(@RequestBody BookAppointmentBean bean) {
@@ -126,4 +129,193 @@ public class BookAppointmentController {
 
 	        return responseBean;
 	    }
+	 
+	 @GetMapping("/pastAppointmentList/{patientid}")
+		public ResponseBean<List<BookAppointmentBean>> pastAppointmentList(@PathVariable("patientid") int patientid){
+			List<BookAppointmentBean> Bean = dao.pastAppointmentList(patientid);
+			
+			ResponseBean<List<BookAppointmentBean>> responseBean = new ResponseBean<>();
+		
+			responseBean.setData(Bean);	
+			responseBean.setMsg("User Diet List!!");
+			responseBean.setStatus(200);
+			
+			return responseBean;
+		}
+	 
+	 @PutMapping("/done_appointment")
+	 public ResponseBean<BookAppointmentBean> done_Appointment(@RequestBody BookAppointmentBean appointmentBean) {
+	 dao.done_Appointment(appointmentBean);
+	 ResponseBean<BookAppointmentBean> response = new ResponseBean<>();
+	 response.setData(appointmentBean);
+	 response.setMsg("Details Submited Successfully..!!");
+	 return response;
+	 }
+	 
+	 @GetMapping("/todayAppointment/{userid}")
+	 public ResponseBean<java.util.List<BookAppointmentBean>> todayAppointment(@PathVariable("userid") int userid) {
+	 ResponseBean<java.util.List<BookAppointmentBean>> response = new ResponseBean<>();
+	 java.util.List<BookAppointmentBean> appointmentBean = dao.todayAppointment(userid);
+	 response.setData(appointmentBean);
+	 response.setMsg(" Today Appointment Display..!!!!");
+	 response.setStatus(201);
+	 return response;
+	 }
+
+	 @GetMapping("/waitForAcceptAppointment/{userid}")
+	 public ResponseBean<java.util.List<BookAppointmentBean>> waitForAcceptAppointment(@PathVariable("userid") int userid) {
+	 ResponseBean<java.util.List<BookAppointmentBean>> response = new ResponseBean<>();
+	 java.util.List<BookAppointmentBean> appointmentBean = dao.waitForAcceptAppointment(userid);
+	 response.setData(appointmentBean);
+	 response.setMsg(" Wait For Accept Appointment Display..!!!!");
+	 response.setStatus(201);
+	 return response;
+	 }
+
+	 @GetMapping("/acceptAppointment/{userid}")
+	 public ResponseBean<java.util.List<BookAppointmentBean>> acceptAppointment(@PathVariable("userid") int userid) {
+	 ResponseBean<java.util.List<BookAppointmentBean>> response = new ResponseBean<>();
+	 java.util.List<BookAppointmentBean> appointmentBean = dao.acceptAppointment(userid);
+	 response.setData(appointmentBean);
+	 response.setMsg("Accept Appointment Display..!!!!");
+	 response.setStatus(201);
+	 return response;
+	 }
+
+	 @GetMapping("/rescheduleAppointment/{userid}")
+	 public ResponseBean<java.util.List<BookAppointmentBean>> rescheduleAppointment(@PathVariable("userid") int userid) {
+	 ResponseBean<java.util.List<BookAppointmentBean>> response = new ResponseBean<>();
+	 java.util.List<BookAppointmentBean> appointmentBean = dao.rescheduleAppointment(userid);
+	 response.setData(appointmentBean);
+	 response.setMsg("Reschedule Appointment Display..!!!!");
+	 response.setStatus(201);
+	 return response;
+	 }
+
+	 @GetMapping("/doneAppointment/{userid}")
+	 public ResponseBean<java.util.List<BookAppointmentBean>> doneAppointment(@PathVariable("userid") int userid) {
+	 ResponseBean<java.util.List<BookAppointmentBean>> response = new ResponseBean<>();
+	 java.util.List<BookAppointmentBean> appointmentBean = dao.doneAppointment(userid);
+	 response.setData(appointmentBean);
+	 response.setMsg("Done Appointment Display..!!!!");
+	 response.setStatus(201);
+	 return response;
+	 }
+	 
+	 @PutMapping("/updateRescheduleAppointment")
+	 public ResponseBean<BookAppointmentBean> updateRescheduleAppointment(@RequestBody BookAppointmentBean appointmentBean) {
+	 System.out.println("fhfhf"+appointmentBean.getStatusreason());
+		 dao.updateRescheduleAppointment(appointmentBean);
+	 
+	 ResponseBean<BookAppointmentBean> response = new ResponseBean<>();
+	 response.setData(appointmentBean);
+	 response.setMsg("Appointment Reject Successfully..!!");
+	 return response;
+	 }
+	 
+	 @PutMapping("/updateRejectAppointment")
+	 public ResponseBean<BookAppointmentBean> updateRejectAppointment(@RequestBody BookAppointmentBean appointmentBean) {
+	 System.out.println("fhfhf"+appointmentBean.getStatusreason());
+		 dao.updateRejectAppointment(appointmentBean);
+	 
+	 ResponseBean<BookAppointmentBean> response = new ResponseBean<>();
+	 response.setData(appointmentBean);
+	 response.setMsg("Appointment Reject Successfully..!!");
+	 return response;
+	 }
+
+
+	 @GetMapping("/rescheduleReason/{email}/{appointmentid}")
+	 public ResponseBean<BookAppointmentBean> sendRescheduleReason(@PathVariable("email") String email,@PathVariable("appointmentid") int appointmentid) {
+	 System.out.println("Reschedule Reason call...");
+
+	 BookAppointmentBean bean = dao.getRescheduleReasonByEmail(email,appointmentid);
+
+	 ResponseBean<BookAppointmentBean> responseBean = new ResponseBean<>();
+
+	 responseBean.setData(bean);
+
+	 if (bean == null) {
+
+	 responseBean.setMsg("Invalid Email Address");
+	 responseBean.setStatus(201);
+
+	 } else {
+
+
+	 mailerService.sendRescheduleReason(bean);
+
+	 responseBean.setMsg("Email sent for Reschedule");
+	 responseBean.setStatus(200);
+
+	 }
+
+	 return responseBean;
+	 }
+	 
+	 
+	 
+	 
+	 @GetMapping("/rejectReason/{email}/{appointmentid}")
+	 public ResponseBean<BookAppointmentBean> sendRejectReason(@PathVariable("email") String email,@PathVariable("appointmentid") int appointmentid) {
+	 System.out.println("Reject Reason call...");
+
+	 BookAppointmentBean bean = dao.getRejectReasonByEmail(email,appointmentid);
+
+	 ResponseBean<BookAppointmentBean> responseBean = new ResponseBean<>();
+
+	 responseBean.setData(bean);
+
+	 if (bean == null) {
+
+	 responseBean.setMsg("Invalid Email Address");
+	 responseBean.setStatus(201);
+
+	 } else {
+
+
+	 mailerService.sendRejectReason(bean);
+
+	 responseBean.setMsg("Email sent for Reject");
+	 responseBean.setStatus(200);
+
+	 }
+
+	 return responseBean;
+	 }
+	 
+	 @GetMapping("/doneAppointmentForAllDoctor")
+	    public ResponseBean<java.util.List<BookAppointmentBean>> doneAppointmentForAllDoctor() {
+	        ResponseBean<java.util.List<BookAppointmentBean>> response = new ResponseBean<>();
+	        java.util.List<BookAppointmentBean> appointmentBean = dao.doneAppointmentForAllDoctor();
+	        response.setData(appointmentBean);
+	        response.setMsg("Done Appointment Display..!!!!");
+	        response.setStatus(201);
+	        return response;
+	    }
+	 
+	 
+	 @GetMapping("/listAllAppointment")
+	    public ResponseBean<java.util.List<BookAppointmentBean>> listAllAppointment() {
+	        ResponseBean<java.util.List<BookAppointmentBean>> response = new ResponseBean<>();
+	        java.util.List<BookAppointmentBean> appointmentBean = dao.listAllAppointment();
+	        response.setData(appointmentBean);
+	        response.setMsg("Appointment List Display..!!!!");
+	        response.setStatus(201);
+	        return response;
+	    }
+	 
+	 @GetMapping("/viewPatientAppointment/{userid}")
+	    public ResponseBean<java.util.List<BookAppointmentBean>> viewPatientAppointment(@PathVariable("userid") int userid) {
+	        ResponseBean<java.util.List<BookAppointmentBean>> response = new ResponseBean<>();
+	        
+	        java.util.List<BookAppointmentBean> appointmentBean = dao.viewPatientAppointment(userid);
+	        response.setData(appointmentBean);
+	        response.setMsg("Appointment List Display..!!!!");
+	        response.setStatus(201);
+	        return response;
+	    }
+	   
+	 
+	 
 }

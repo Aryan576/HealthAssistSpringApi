@@ -70,4 +70,25 @@ public class DoctorProfiledoa {
 
 		return bean;
 	}
+
+	public List<DoctorProfileBean> kycDoctor() {
+		// TODO Auto-generated method stub
+		java.util.List<DoctorProfileBean> DoctorBean = stmt.query("select u.*,d.*,d.doctorprofileid as docProfileId from doctorprofile as d join users u using(userid) where userid = d.userid and d.isdeleted=0 and u.status=5", BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
+		return DoctorBean;
+	}
+
+	public List<DoctorProfileBean> activeDoctor() {
+		java.util.List<DoctorProfileBean> DoctorBean = stmt.query("select u.*,d.*,d.doctorprofileid as docProfileId from doctorprofile as d join users u using(userid) where userid = d.userid and d.isdeleted=0 and u.status=1", BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
+		return DoctorBean;
+	}
+
+	public List<DoctorProfileBean> pendingDoctor() {
+		java.util.List<DoctorProfileBean> DoctorBean = stmt.query("select u.*,d.*,d.doctorprofileid as docProfileId from doctorprofile as d join users u using(userid) where userid = d.userid and d.isdeleted=0 and u.status=2", BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
+		return DoctorBean;
+	}
+
+	public List<DoctorProfileBean> pauseDoctor() {
+		java.util.List<DoctorProfileBean> DoctorBean = stmt.query("select u.*,d.*,d.doctorprofileid as docProfileId from doctorprofile as d join users u using(userid) where userid = d.userid and d.isdeleted=0 and u.status=4", BeanPropertyRowMapper.newInstance(DoctorProfileBean.class));
+		return DoctorBean;
+	}
 }

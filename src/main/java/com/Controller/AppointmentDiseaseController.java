@@ -37,9 +37,9 @@ public class AppointmentDiseaseController {
 		return responseBean;
 	}
 	
-	@GetMapping("/listAppointmentDisease/{appointmentid}")
-	public ResponseBean<List<AppointmentDiseaseBean>> listAppointmentDisease(@PathVariable("appointmentid") int appointmentid){
-		List<AppointmentDiseaseBean> appointmentDiseaseBean = appointmentdiseaseDao.listAppointmentDisease(appointmentid);
+	@GetMapping("/listAppointmentDisease/{patientid}")
+	public ResponseBean<List<AppointmentDiseaseBean>> listAppointmentDisease(@PathVariable("patientid") int patientid){
+		List<AppointmentDiseaseBean> appointmentDiseaseBean = appointmentdiseaseDao.listAppointmentDisease(patientid);
 		
 		ResponseBean<List<AppointmentDiseaseBean>> responseBean = new ResponseBean<>();
 	
@@ -85,5 +85,6 @@ public class AppointmentDiseaseController {
 		
 		return responseBean;
 	}
+	
 
 }

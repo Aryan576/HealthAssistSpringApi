@@ -28,7 +28,7 @@ public class PatientProfileController {
 		dao.addpatientprofile(bean);
 
 		responsebean.setData(bean);
-		responsebean.setMsg(" Patent Profile Updated");
+		responsebean.setMsg(" Patent Profile Added");
 		responsebean.setStatus(200);
 
 		return responsebean;
@@ -108,6 +108,28 @@ public class PatientProfileController {
         response.setStatus(201);
         return response;
     }
+    
+    @GetMapping("/getFamilyMember/{patientid}")
+	public ResponseBean<PatientProfileBean> getFamilyMember(@PathVariable("patientid") int patientid, PatientProfileBean bean) {
+
+		ResponseBean<PatientProfileBean> responseBean = new ResponseBean<>();
+		bean = dao.getFamilyMember(patientid);
+		responseBean.setData(bean);
+		responseBean.setMsg("Single User Return");
+		responseBean.setStatus(200);
+
+		return responseBean;
+	}
+    
+    @PutMapping("/updateFamilyMember")
+    public ResponseBean<PatientProfileBean> updateFamilyMember(@RequestBody PatientProfileBean patientBean) {
+    	dao.updateFamilyMember(patientBean);
+        ResponseBean<PatientProfileBean> response = new ResponseBean<>();
+        response.setData(patientBean);
+        response.setMsg("Patient Updated Successfully..!!");
+        return response;
+    }
+    
     
 
 }

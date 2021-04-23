@@ -21,10 +21,10 @@ public class AppointmentDiseasedao {
 				appointmentDiseaseBean.getAppointmentid(),appointmentDiseaseBean.getDiseaseid(),appointmentDiseaseBean.getPatientprofileid());
 	}
 
-	public List<AppointmentDiseaseBean> listAppointmentDisease(int appointmentid) {
+	public List<AppointmentDiseaseBean> listAppointmentDisease(int patientid) {
 		// TODO Auto-generated method stub
-		List<AppointmentDiseaseBean> appointmentDiseaseBean = stmt.query("select ap.*,ad.*,d.* from appointmentdisease as ad,appointment as ap,disease as d join disease using(diseaseid) where ad.diseaseid = d.diseaseid and ad.appointmentid = ap.appointmentid and ap.appointmentid = ?",
-				new Object[] {appointmentid},BeanPropertyRowMapper.newInstance(AppointmentDiseaseBean.class));
+		List<AppointmentDiseaseBean> appointmentDiseaseBean = stmt.query("select ap.*,ad.*,pp.*,d.* from appointment as ap,patientprofile as pp,appointmentdisease as ad,disease as d where ad.appointmentid = ap.appointmentid and ad.diseaseid = d.diseaseid and ad.patientprofileid = ap.patientid and ap.patientid = pp.patientid  and pp.patientid = ?",
+				new Object[] {patientid},BeanPropertyRowMapper.newInstance(AppointmentDiseaseBean.class));
 		return appointmentDiseaseBean;
 	}
 
