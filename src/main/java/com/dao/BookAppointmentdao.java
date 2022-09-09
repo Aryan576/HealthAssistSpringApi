@@ -204,4 +204,16 @@ public class BookAppointmentdao {
 			return appointmentBean;
 		}
 
+		public BookAppointmentBean getPatientDetailsById(int appointmentid) {
+			BookAppointmentBean bean = null;
+	        try {
+	            bean = stmt.queryForObject("select ap.*,pp.*,pres.*,cli.clinicname from appointment as ap,prescription as pres,clinic as cli,patientprofile as pp where  ap.patientid=pp.patientid and ap.appointmentid = pres.appointmentid and ap.clinicid = cli.clinicid and  ap.appointmentid=?", new Object[]{appointmentid},
+	                    BeanPropertyRowMapper.newInstance(BookAppointmentBean.class));
+	        } catch (Exception e) {
+	            // TODO: handle exception
+	            e.printStackTrace();
+	        }
+			return bean;
+		}
+
 }

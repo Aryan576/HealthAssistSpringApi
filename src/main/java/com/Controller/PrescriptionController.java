@@ -97,7 +97,19 @@ public class PrescriptionController {
 	
 		return responseBean;
 	}
-	
+	@GetMapping("/listPrescriptionMedicine/{appointmentid}")
+	public ResponseBean<List<PrescriptionBean>> listPrescription(@PathVariable("appointmentid") int appointmentid) {
+
+		List<PrescriptionBean> prescriptionBean = prescriptionDao.listPrescription(appointmentid);
+
+		ResponseBean<List<PrescriptionBean>> responseBean = new ResponseBean<>();
+
+		responseBean.setData(prescriptionBean);
+		responseBean.setMsg("Prescription List!!");
+		responseBean.setStatus(200);
+
+		return responseBean;
+	}
 	
 	 
 }

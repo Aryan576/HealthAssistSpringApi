@@ -99,6 +99,12 @@ public class Prescriptiondao {
 		
 	}
 
+	public List<PrescriptionBean> listPrescription(int appointmentid) {
+		List<PrescriptionBean> prescriptionBean = stmt.query("select pm.*,m.*,pres.* from prescriptionmedicine as pm,medicine as m,prescription as pres where pm.medicineid = m.medicineid and pm.prescriptionid = pres.prescriptionid and pres.appointmentid = ?",
+				new Object[] {appointmentid},BeanPropertyRowMapper.newInstance(PrescriptionBean.class));
+		return prescriptionBean;
+	}
+
 
 
 }
